@@ -22,147 +22,39 @@
         h1 {
             color: #333;
         }
-        .command {
-            border-bottom: 1px solid #eee;
+        .command-section {
             padding: 10px 0;
-        }
-        .command:last-child {
-            border-bottom: none;
-        }
-        .title {
             font-size: 20px;
             color: #007BFF;
+            text-decoration: none;
+            cursor: pointer;
+            display: block;
+            margin: 10px 0;
         }
-        .description, .usage, .other-ways {
-            margin: 5px 0;
+        .command-section:hover {
+            text-decoration: underline;
+        }
+        .section-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Bash Commands Guide</h1>
-    <!-- Command Entry -->
-    <div class="command">
-        <div class="title">cd</div>
-        <div class="usage">Usage: Change directory</div>
-        <div class="other-ways">Other Ways: chdir (less common)</div>
-        <div class="description">Description: Navigates to a different directory.</div>
-    </div>
-    <div class="command">
-        <div class="title">ls</div>
-        <div class="usage">Usage: List directory contents</div>
-        <div class="other-ways">Other Ways: dir (on some systems)</div>
-        <div class="description">Description: Lists files and directories in the current directory.div>
-    </div>
-    <div class="command">
-        <div class="title">pwd</div>
-        <div class="usage">Usage: Print Working Directory</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description: Displays the full path of the current working directory.</div>
-    </div>
-    <div class="command">
-        <div class="title">mkdir</div>
-        <div class="usage">Usage: Create a new directory</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description: Creates a new directory.</div>
-    </div>
-    <div class="command">
-        <div class="title">rmdir</div>
-        <div class="usage">Usage: Remove an empty directory</div>
-        <div class="other-ways">Other Ways: rm -d (be cautious!)</div>
-        <div class="description">Description: Removes an empty directory. Use rm -d with caution as it can permanently delete non-empty directories.</div>
-    </div>
-    <div class="command">
-        <div class="title">touch</div>
-        <div class="usage">Usage:Create an empty file</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description: Creates an empty file.</div>
-    </div>
-    <div class="command">
-        <div class="title">rm</div>
-        <div class="usage">Usage: Remove a file or directory (use with caution!)</div>
-        <div class="other-ways">Other Ways: del (on some systems)</div>
-        <div class="description">Description: Removes a file or directory. Use with caution!</div>
-    </div>
-    <div class="command">
-        <div class="title">cp</div>
-        <div class="usage">Usage: Copy a file or directory</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description: Copies a file or directory.</div>
-    </div>
-    <div class="command">
-        <div class="title">mv</div>
-        <div class="usage">Usage: Move or rename a file or directory</div>
-        <div class="other-ways">Other Ways: ren (on some systems)</div>
-        <div class="description">Description:  Moves or renames a file or directory.</div>
-    </div>
-    <div class="command">
-        <div class="title">cat</div>
-        <div class="usage">Usage: Display the contents of a file</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Displays the entire content of a file.</div>
-    </div>
-    <div class="command">
-        <div class="title">more</div>
-        <div class="usage">Usage: Display a file content page by page</div>
-        <div class="other-ways">Other Ways: less (similar functionality)</div>
-        <div class="description">Description:  Displays the content of a file one page at a time.</div>
-    </div>
-    <div class="command">
-        <div class="title">grep</div>
-        <div class="usage">Usage: Search for a pattern in text files</div>
-        <div class="other-ways">Other Ways: findstr (on some systems)</div>
-        <div class="description">Description: Searches for lines matching a specific pattern in text files.</div>
-    </div>
-    <div class="command">
-        <div class="title">echo</div>
-        <div class="usage">Usage: Print text to the terminal</div>
-        <div class="other-ways">Other Ways: printf (more formatting options)</div>
-        <div class="description">Description:  Prints text to the command line.</div>
-    </div>
-    <div class="command">
-        <div class="title">chmod</div>
-        <div class="usage">Usage: Change file permissions</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Modifies access permissions (read, write, execute) for files and directories.</div>
-    </div>
-    <div class="command">
-        <div class="title">head</div>
-        <div class="usage">Usage: Display the first lines of a file</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Displays the first n lines (default: 10) of a file.</div>
-    </div>
-    <div class="command">
-        <div class="title">tail</div>
-        <div class="usage">Usage: Display the last lines of a file</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Displays the last n lines (default: 10) of a file.</div>
-    </div>
-    <div class="command">
-        <div class="title">**</div>
-        <div class="usage">Usage: ` (pipe operator)**</div>
-        <div class="other-ways">Other Ways: Connects commands</div>
-        <div class="description">Description:  It matches filenames and directories recursively.</div>
-    </div>
-    <div class="command">
-        <div class="title">wc</div>
-        <div class="usage">Usage: Word count</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Counts lines, words, and characters in a file.</div>
-    </div>
-    <div class="command">
-        <div class="title">sed</div>
-        <div class="usage">Usage: Stream editor</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  A powerful text processing tool for filtering, modifying, and transforming text files.</div>
-    </div>
-    <div class="command">
-        <div class="title">awk</div>
-        <div class="usage">Usage: Pattern-matching language</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Another powerful text processing tool for data manipulation based on patterns and conditions.</div>
-    </div>
+    <h1>Reference Commands Guide</h1>
+        <!-- Links to Command Sections -->
+        <a href="Bashcommand.html" class="command-section">Section 1: Bash Commands</a>
+        <a href="condacommand.html" class="command-section">Section 2: Conda Operations</a>
+        <a href="tmuxcommand.html" class="command-section">Section 3: Tmux Commands</a>
+    
+        <!-- Add your existing commands here if necessary -->
+    
 </div>
+
 </body>
 </html>

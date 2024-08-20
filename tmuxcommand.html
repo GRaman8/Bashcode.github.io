@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 1: Basic Commands</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .command {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .command:last-child {
+            border-bottom: none;
+        }
+        .title {
+            font-size: 20px;
+            color: #007BFF;
+        }
+        .description, .usage, .other-ways {
+            margin: 5px 0;
+        }
+        .section-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Section 3: Tmux Commands Guide</h1>
+    <p>tmux is a terminal multiplexer that allows you to manage multiple terminal sessions within a single window. Here are some key tmux commands:</p>
+    <div class="command">
+        <div class="title">tmux new -s session_name</div>
+        <div class="usage">Usage: Start a new session</div>
+        <div class="description">Description: Replace session_name with your desired session name.</div>
+    </div>
+    <div class="command">
+        <div class="title">Press Ctrl + b, then press d</div>
+        <div class="usage">Usage: Detach from the current session</div>
+    </div>
+    <div class="command">
+        <div class="title">tmux ls</div>
+        <div class="usage">Usage: List all sessions</div>
+    </div>
+    <div class="command">
+        <div class="title">tmux attach -t session_name</div>
+        <div class="usage">Usage: Reattach to a session</div>
+        <div class="description">Description: Replace session_name with the name of the session you want to attach to.</div>
+    </div>
+    <div class="command">
+        <div class="title">tmux kill-session -t session_name</div>
+        <div class="usage">Usage: Kill a session</div>
+    </div>
+    <div class="command">
+        <div class="title">tmux kill-server</div>
+        <div class="usage">Usage: Kill all sessions</div>
+    </div>
+    <img src="Tmux image-1.png" alt="Tmux image refer the code file or in github repo" class="section-image">
+    <img src="Tmux image-2.png" alt="Tmux image refer the code file or in github repo" class="section-image">
+    <img src="Tmux image-3.png" alt="Tmux image refer the code file or in github repo" class="section-image">
+    <!-- Add more commands relevant to this section -->
+</div>
+
+</body>
+</html>

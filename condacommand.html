@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 1: Basic Commands</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .command {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .command:last-child {
+            border-bottom: none;
+        }
+        .title {
+            font-size: 20px;
+            color: #007BFF;
+        }
+        .description, .usage, .other-ways {
+            margin: 5px 0;
+        }
+        .section-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Section 2: Conda Commands Guide</h1>
+    <p>Conda is a package, dependency, and environment management tool commonly used in data science and software development. Here are some essential commands for managing environments and packages with Conda:</p>
+    <div class="command">
+        <div class="title">conda create --name myenv</div>
+        <div class="usage">Usage: Create a new environment</div>
+        <div class="description">Description: Replace myenv with the desired name for your environment.</div>
+    </div>
+    <div class="command">
+        <div class="title">conda activate myenv</div>
+        <div class="usage">Usage: Activate an environment</div>
+    </div>
+    <div class="command">
+        <div class="title">conda deactivate</div>
+        <div class="usage">Usage: Deactivate the current environment:</div>
+    </div>  
+    <div class="command">
+        <div class="title">conda env list</div>
+        <div class="usage">Usage: List all environments</div>
+        <div class="other-ways">Other Ways: conda info --envs</div>
+    </div> 
+    <div class="command">
+        <div class="title">conda remove --name myenv --all</div>
+        <div class="usage">Usage: Remove an environment</div>
+    </div>
+    <div class="command">
+        <div class="title">conda install package_name</div>
+        <div class="usage">Usage: Install a package in the current environment</div>
+        <div class="description">Description: Replace package_name with the name of the package you want to install.</div>
+    </div> 
+    <div class="command">
+        <div class="title">conda install package_name=version_number</div>
+        <div class="usage">Usage: Install a specific version of a package</div>
+        <div class="description">Description: Replace version_number with the specific version you need.</div>
+    </div>
+    <div class="command">
+        <div class="title">conda update package_name</div>
+        <div class="usage">Usage: Update a package</div>
+    </div>
+    <div class="command">
+        <div class="title">conda remove package_name</div>
+        <div class="usage">Usage: Remove a package</div>
+    </div>
+    <div class="command">
+        <div class="title">conda list</div>
+        <div class="usage">Usage: List all installed packages</div>
+    </div>
+    <div class="command">
+        <div class="title">conda search package_name</div>
+        <div class="usage">Usage: Search for a package</div>
+    </div>
+    <div class="command">
+        <div class="title">conda update conda</div>
+        <div class="usage">Usage: Update Conda itself</div>
+    </div>
+    <div class="command">
+        <div class="title">conda clean --all</div>
+        <div class="usage">Usage: Clean up unused packages and caches</div>
+    </div>    
+    <!-- Add more commands relevant to this section -->
+</div>
+
+</body>
+</html>
