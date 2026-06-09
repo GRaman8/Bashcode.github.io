@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 4: Vim Editor Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            border-left: 4px solid #007BFF;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        .command {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .command:last-child {
+            border-bottom: none;
+        }
+        .title {
+            font-size: 20px;
+            color: #007BFF;
+            font-family: monospace;
+        }
+        .description, .usage, .other-ways {
+            margin: 5px 0;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .mode-badge {
+            display: inline-block;
+            background: #007BFF;
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .mode-badge.normal  { background: #28a745; }
+        .mode-badge.insert  { background: #dc3545; }
+        .mode-badge.visual  { background: #6f42c1; }
+        .mode-badge.command { background: #fd7e14; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+    <h1>Section 4: Vim Editor Guide</h1>
+    <p>Vim is a highly configurable, terminal-based text editor. It operates in different <strong>modes</strong> — understanding modes is the key to using Vim effectively.</p>
+
+    <div class="note">
+        <strong>Vim Modes at a Glance:</strong><br>
+        <span class="mode-badge normal">Normal</span> Default mode — navigate, copy, delete, run commands.<br>
+        <span class="mode-badge insert">Insert</span> Type and edit text like a regular editor.<br>
+        <span class="mode-badge visual">Visual</span> Select text for copying, deleting, or replacing.<br>
+        <span class="mode-badge command">Command</span> Run ex-commands like save, quit, search/replace.
+    </div>
+
+    <!-- ── OPENING & CLOSING ── -->
+    <h2>Opening &amp; Closing Vim</h2>
+
+    <div class="command">
+        <div class="title">vim filename</div>
+        <div class="usage">Usage: Open a file in Vim</div>
+        <div class="description">Description: If the file does not exist, Vim creates it when you save.</div>
+    </div>
+    <div class="command">
+        <div class="title">vim</div>
+        <div class="usage">Usage: Open Vim without a file (scratch buffer)</div>
+    </div>
+    <div class="command">
+        <div class="title">vim +N filename</div>
+        <div class="usage">Usage: Open file and jump to line N</div>
+        <div class="description">Description: e.g., <code>vim +42 app.py</code> opens app.py at line 42.</div>
+    </div>
+    <div class="command">
+        <div class="title">vim -R filename</div>
+        <div class="usage">Usage: Open file in read-only mode</div>
+        <div class="other-ways">Other Ways: view filename</div>
+    </div>
+    <div class="command">
+        <div class="title">:q <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Quit Vim (only works if no unsaved changes)</div>
+    </div>
+    <div class="command">
+        <div class="title">:q! <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Force quit without saving</div>
+    </div>
+    <div class="command">
+        <div class="title">:w <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Save (write) the current file</div>
+    </div>
+    <div class="command">
+        <div class="title">:wq <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Save and quit</div>
+        <div class="other-ways">Other Ways: :x &nbsp;|&nbsp; ZZ (Normal mode)</div>
+    </div>
+    <div class="command">
+        <div class="title">:w filename <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Save as a new filename (keeps original open)</div>
+    </div>
+    <div class="command">
+        <div class="title">:saveas filename <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Save as and switch to new filename</div>
+    </div>
+
+    <!-- ── MODE SWITCHING ── -->
+    <h2>Switching Modes</h2>
+
+    <div class="command">
+        <div class="title">i <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Enter Insert mode before the cursor</div>
+    </div>
+    <div class="command">
+        <div class="title">I <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Enter Insert mode at the beginning of the line</div>
+    </div>
+    <div class="command">
+        <div class="title">a <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Enter Insert mode after the cursor</div>
+    </div>
+    <div class="command">
+        <div class="title">A <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Enter Insert mode at the end of the line</div>
+    </div>
+    <div class="command">
+        <div class="title">o <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Open a new line below and enter Insert mode</div>
+    </div>
+    <div class="command">
+        <div class="title">O <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Open a new line above and enter Insert mode</div>
+    </div>
+    <div class="command">
+        <div class="title">s <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Delete character under cursor and enter Insert mode</div>
+    </div>
+    <div class="command">
+        <div class="title">S <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Delete entire line and enter Insert mode</div>
+    </div>
+    <div class="command">
+        <div class="title">v <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Enter Visual (character) mode</div>
+    </div>
+    <div class="command">
+        <div class="title">V <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Enter Visual Line mode (select whole lines)</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+v <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Enter Visual Block mode (column/rectangle select)</div>
+    </div>
+    <div class="command">
+        <div class="title">: <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Enter Command-line mode</div>
+    </div>
+    <div class="command">
+        <div class="title">Esc <span class="mode-badge insert">Insert</span> <span class="mode-badge visual">Visual</span></div>
+        <div class="usage">Usage: Return to Normal mode from any other mode</div>
+        <div class="other-ways">Other Ways: Ctrl+[ (same as Esc)</div>
+    </div>
+
+    <!-- ── NAVIGATION ── -->
+    <h2>Navigation (Normal Mode)</h2>
+
+    <div class="command">
+        <div class="title">h &nbsp; j &nbsp; k &nbsp; l <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Move left / down / up / right</div>
+        <div class="description">Description: Arrow keys work too, but hjkl keeps your hands on the home row.</div>
+    </div>
+    <div class="command">
+        <div class="title">w <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to start of next word</div>
+        <div class="other-ways">Other Ways: W (jump by whitespace-delimited word)</div>
+    </div>
+    <div class="command">
+        <div class="title">b <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to start of previous word</div>
+        <div class="other-ways">Other Ways: B (whitespace-delimited)</div>
+    </div>
+    <div class="command">
+        <div class="title">e <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to end of current/next word</div>
+    </div>
+    <div class="command">
+        <div class="title">0 <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to beginning of the line</div>
+    </div>
+    <div class="command">
+        <div class="title">^ <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to first non-whitespace character of the line</div>
+    </div>
+    <div class="command">
+        <div class="title">$ <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to end of the line</div>
+    </div>
+    <div class="command">
+        <div class="title">gg <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to first line of the file</div>
+    </div>
+    <div class="command">
+        <div class="title">G <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to last line of the file</div>
+    </div>
+    <div class="command">
+        <div class="title">:N <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Jump to line number N</div>
+        <div class="description">Description: e.g., :50 jumps to line 50. Also Ngg or NG in Normal mode.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+f <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Scroll one page forward (down)</div>
+        <div class="other-ways">Other Ways: Page Down</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+b <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Scroll one page backward (up)</div>
+        <div class="other-ways">Other Ways: Page Up</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+d <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Scroll half-page down</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+u <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Scroll half-page up</div>
+    </div>
+    <div class="command">
+        <div class="title">{ &nbsp; } <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to previous / next empty line (paragraph)</div>
+    </div>
+    <div class="command">
+        <div class="title">% <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to matching bracket — ( ), [ ], { }</div>
+    </div>
+    <div class="command">
+        <div class="title">fx <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to next occurrence of character x on the current line</div>
+        <div class="other-ways">Other Ways: Fx (jump backward), tx (just before x), Tx</div>
+    </div>
+
+    <!-- ── EDITING ── -->
+    <h2>Editing — Delete, Copy, Paste</h2>
+
+    <div class="command">
+        <div class="title">x <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Delete character under cursor</div>
+        <div class="other-ways">Other Ways: X (delete character before cursor)</div>
+    </div>
+    <div class="command">
+        <div class="title">dd <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Delete (cut) the current line</div>
+        <div class="description">Description: Ndd deletes N lines (e.g., 3dd deletes 3 lines).</div>
+    </div>
+    <div class="command">
+        <div class="title">dw <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Delete from cursor to end of word</div>
+        <div class="other-ways">Other Ways: dW, d$ (to end of line), d0 (to start of line), dG (to end of file)</div>
+    </div>
+    <div class="command">
+        <div class="title">D <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Delete from cursor to end of line</div>
+    </div>
+    <div class="command">
+        <div class="title">yy <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Yank (copy) the current line</div>
+        <div class="description">Description: Nyy copies N lines (e.g., 5yy copies 5 lines).</div>
+        <div class="other-ways">Other Ways: Y (same as yy)</div>
+    </div>
+    <div class="command">
+        <div class="title">yw <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Yank from cursor to end of word</div>
+        <div class="other-ways">Other Ways: y$ (to end of line), yG (to end of file)</div>
+    </div>
+    <div class="command">
+        <div class="title">p <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Paste after cursor / below current line</div>
+        <div class="other-ways">Other Ways: P (paste before cursor / above current line)</div>
+    </div>
+    <div class="command">
+        <div class="title">r <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Replace single character under cursor (stay in Normal mode)</div>
+    </div>
+    <div class="command">
+        <div class="title">R <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Enter Replace mode — overwrite characters as you type</div>
+    </div>
+    <div class="command">
+        <div class="title">cc <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Delete line and enter Insert mode (change line)</div>
+        <div class="other-ways">Other Ways: cw (change word), c$ (change to end of line), C (same as c$)</div>
+    </div>
+    <div class="command">
+        <div class="title">~ <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Toggle case of character under cursor</div>
+    </div>
+    <div class="command">
+        <div class="title">J <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Join current line with the line below</div>
+    </div>
+    <div class="command">
+        <div class="title">&gt;&gt; <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Indent current line one level to the right</div>
+        <div class="other-ways">Other Ways: &lt;&lt; (un-indent)</div>
+    </div>
+
+    <!-- ── UNDO/REDO ── -->
+    <h2>Undo &amp; Redo</h2>
+
+    <div class="command">
+        <div class="title">u <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Undo last change</div>
+        <div class="description">Description: Press repeatedly to undo multiple changes.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+r <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Redo (undo the undo)</div>
+    </div>
+    <div class="command">
+        <div class="title">U <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Undo all changes on the current line</div>
+    </div>
+    <div class="command">
+        <div class="title">. <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Repeat the last change</div>
+        <div class="description">Description: One of the most powerful Vim shortcuts — repeat any edit without retyping it.</div>
+    </div>
+
+    <!-- ── SEARCH & REPLACE ── -->
+    <h2>Search &amp; Replace</h2>
+
+    <div class="command">
+        <div class="title">/pattern <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Search forward for pattern</div>
+        <div class="description">Description: Press Enter to confirm. n jumps to next match, N to previous.</div>
+    </div>
+    <div class="command">
+        <div class="title">?pattern <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Search backward for pattern</div>
+    </div>
+    <div class="command">
+        <div class="title">n <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to next search match</div>
+        <div class="other-ways">Other Ways: N (previous match)</div>
+    </div>
+    <div class="command">
+        <div class="title">* <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Search forward for the word under cursor</div>
+        <div class="other-ways">Other Ways: # (search backward for word under cursor)</div>
+    </div>
+    <div class="command">
+        <div class="title">:s/old/new/ <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Replace first occurrence of "old" with "new" on the current line</div>
+    </div>
+    <div class="command">
+        <div class="title">:s/old/new/g <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Replace all occurrences of "old" with "new" on the current line</div>
+    </div>
+    <div class="command">
+        <div class="title">:%s/old/new/g <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Replace all occurrences in the entire file</div>
+    </div>
+    <div class="command">
+        <div class="title">:%s/old/new/gc <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Replace all occurrences in the file with confirmation prompt</div>
+        <div class="description">Description: After each match, press y (yes), n (no), a (all), q (quit), l (last).</div>
+    </div>
+    <div class="command">
+        <div class="title">:noh <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Clear search highlight</div>
+        <div class="other-ways">Other Ways: :nohlsearch</div>
+    </div>
+
+    <!-- ── VISUAL MODE ── -->
+    <h2>Visual Mode — Selecting Text</h2>
+
+    <div class="command">
+        <div class="title">v then motion <span class="mode-badge visual">Visual</span></div>
+        <div class="usage">Usage: Select text character by character using movement keys</div>
+        <div class="description">Description: e.g., v then w selects to end of next word.</div>
+    </div>
+    <div class="command">
+        <div class="title">V <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Select entire lines</div>
+    </div>
+    <div class="command">
+        <div class="title">d <span class="mode-badge visual">Visual</span></div>
+        <div class="usage">Usage: Delete selected text</div>
+    </div>
+    <div class="command">
+        <div class="title">y <span class="mode-badge visual">Visual</span></div>
+        <div class="usage">Usage: Yank (copy) selected text</div>
+    </div>
+    <div class="command">
+        <div class="title">&gt; <span class="mode-badge visual">Visual</span></div>
+        <div class="usage">Usage: Indent selected lines</div>
+        <div class="other-ways">Other Ways: &lt; (un-indent)</div>
+    </div>
+    <div class="command">
+        <div class="title">~ <span class="mode-badge visual">Visual</span></div>
+        <div class="usage">Usage: Toggle case of selected text</div>
+        <div class="other-ways">Other Ways: u (lowercase), U (uppercase)</div>
+    </div>
+
+    <!-- ── MULTIPLE FILES & WINDOWS ── -->
+    <h2>Multiple Files &amp; Split Windows</h2>
+
+    <div class="command">
+        <div class="title">:e filename <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Open another file in the current window</div>
+    </div>
+    <div class="command">
+        <div class="title">:sp filename <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Open file in a horizontal split</div>
+        <div class="other-ways">Other Ways: :split filename</div>
+    </div>
+    <div class="command">
+        <div class="title">:vsp filename <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Open file in a vertical split</div>
+        <div class="other-ways">Other Ways: :vsplit filename</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+w then h/j/k/l <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Move focus between split windows</div>
+        <div class="description">Description: Arrow keys also work after Ctrl+w.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+w then q <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Close the current split window</div>
+    </div>
+    <div class="command">
+        <div class="title">:tabnew filename <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Open file in a new tab</div>
+    </div>
+    <div class="command">
+        <div class="title">gt <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Go to next tab</div>
+        <div class="other-ways">Other Ways: gT (previous tab)</div>
+    </div>
+    <div class="command">
+        <div class="title">:ls <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: List all open buffers</div>
+    </div>
+    <div class="command">
+        <div class="title">:bn <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Go to next buffer</div>
+        <div class="other-ways">Other Ways: :bp (previous buffer), :b N (buffer by number)</div>
+    </div>
+
+    <!-- ── MARKS & JUMPS ── -->
+    <h2>Marks &amp; Jump List</h2>
+
+    <div class="command">
+        <div class="title">mx <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Set mark x at current position (x = any letter a–z)</div>
+    </div>
+    <div class="command">
+        <div class="title">`x <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to exact position of mark x</div>
+        <div class="other-ways">Other Ways: 'x (jump to start of line with mark x)</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+o <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Jump to previous location in jump list</div>
+        <div class="other-ways">Other Ways: Ctrl+i (jump forward in jump list)</div>
+    </div>
+
+    <!-- ── MACROS ── -->
+    <h2>Macros — Record &amp; Replay</h2>
+
+    <div class="command">
+        <div class="title">qx <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Start recording macro into register x (x = any letter)</div>
+    </div>
+    <div class="command">
+        <div class="title">q <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Stop recording macro</div>
+    </div>
+    <div class="command">
+        <div class="title">@x <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Replay macro stored in register x</div>
+        <div class="description">Description: N@x replays the macro N times. @@ replays the last used macro.</div>
+    </div>
+
+    <!-- ── SETTINGS & CONFIG ── -->
+    <h2>Useful Settings (Command Mode)</h2>
+
+    <div class="command">
+        <div class="title">:set number <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Show line numbers</div>
+        <div class="other-ways">Other Ways: :set nu | :set nonumber to hide</div>
+    </div>
+    <div class="command">
+        <div class="title">:set relativenumber <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Show relative line numbers (great for jumping N lines)</div>
+    </div>
+    <div class="command">
+        <div class="title">:set hlsearch <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Highlight all search matches</div>
+    </div>
+    <div class="command">
+        <div class="title">:set ignorecase <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Make search case-insensitive</div>
+        <div class="other-ways">Other Ways: :set smartcase (case-insensitive unless uppercase used in search)</div>
+    </div>
+    <div class="command">
+        <div class="title">:set tabstop=4 <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Set tab width to 4 spaces</div>
+    </div>
+    <div class="command">
+        <div class="title">:set expandtab <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Convert tabs to spaces</div>
+    </div>
+    <div class="command">
+        <div class="title">:set autoindent <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Auto-indent new lines to match the previous line</div>
+    </div>
+    <div class="command">
+        <div class="title">:syntax on <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Enable syntax highlighting</div>
+    </div>
+    <div class="command">
+        <div class="title">:colorscheme NAME <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Change color scheme (e.g., :colorscheme desert)</div>
+    </div>
+
+    <!-- ── MISC ── -->
+    <h2>Miscellaneous</h2>
+
+    <div class="command">
+        <div class="title">:! command <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Run a shell command without leaving Vim</div>
+        <div class="description">Description: e.g., :! ls or :! python3 script.py</div>
+    </div>
+    <div class="command">
+        <div class="title">:r filename <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Insert contents of a file below the cursor</div>
+    </div>
+    <div class="command">
+        <div class="title">:r ! command <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Insert output of a shell command into the buffer</div>
+        <div class="description">Description: e.g., :r ! date inserts the current date.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+g <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Show current file name, line number, and percentage through file</div>
+    </div>
+    <div class="command">
+        <div class="title">ga <span class="mode-badge normal">Normal</span></div>
+        <div class="usage">Usage: Show ASCII / Unicode value of character under cursor</div>
+    </div>
+    <div class="command">
+        <div class="title">:help topic <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Open Vim's built-in help for a topic</div>
+        <div class="description">Description: e.g., :help dd or :help motion. Press Ctrl+] on a tag to jump into it.</div>
+    </div>
+    <div class="command">
+        <div class="title">:set paste <span class="mode-badge command">Command</span></div>
+        <div class="usage">Usage: Disable auto-indent while pasting from system clipboard</div>
+        <div class="other-ways">Other Ways: :set nopaste to re-enable</div>
+    </div>
+
+    <!-- ── USE-CASES ── -->
+    <h2>Common Use-Cases &amp; Workflows</h2>
+
+    <div class="command">
+        <div class="title">Quick config file edit</div>
+        <div class="description">Description: <code>vim ~/.bashrc</code> — open, make changes, <code>:wq</code> to save and exit.</div>
+    </div>
+    <div class="command">
+        <div class="title">Rename a variable across a file</div>
+        <div class="description">Description: <code>:%s/oldName/newName/gc</code> — replace with confirmation on every match.</div>
+    </div>
+    <div class="command">
+        <div class="title">Delete all blank lines in a file</div>
+        <div class="description">Description: <code>:g/^$/d</code> — the global command matches all empty lines and deletes them.</div>
+    </div>
+    <div class="command">
+        <div class="title">Comment out a block of lines</div>
+        <div class="description">Description: Use Ctrl+v to enter Visual Block, select lines, press I, type #, then Esc.</div>
+    </div>
+    <div class="command">
+        <div class="title">Repeat an edit on many lines</div>
+        <div class="description">Description: Make the edit on one line, then press j. (dot) to move down and repeat.</div>
+    </div>
+    <div class="command">
+        <div class="title">View two files side by side</div>
+        <div class="description">Description: <code>vim -O file1 file2</code> opens both in a vertical split. Use Ctrl+w+l/h to switch.</div>
+    </div>
+    <div class="command">
+        <div class="title">Compare two files (vimdiff)</div>
+        <div class="description">Description: <code>vimdiff file1 file2</code> — highlights differences between files. ]c / [c jump between diffs.</div>
+    </div>
+
+</div>
+
+</body>
+</html>
