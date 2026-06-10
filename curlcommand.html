@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 5: cURL Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            border-left: 4px solid #007BFF;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        .command {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        .command:last-child {
+            border-bottom: none;
+        }
+        .title {
+            font-size: 18px;
+            color: #007BFF;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .description, .usage, .other-ways, .example {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .example {
+            background: #f8f8f8;
+            padding: 10px;
+            border-left: 3px solid #007BFF;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border-radius: 4px;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .method-badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .method-badge.post { background: #dc3545; }
+        .method-badge.put { background: #fd7e14; }
+        .method-badge.patch { background: #6f42c1; }
+        .method-badge.delete { background: #dc3545; }
+        .method-badge.option { background: #17a2b8; }
+        .quick-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .quick-table th, .quick-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .quick-table th {
+            background: #007BFF;
+            color: white;
+        }
+        .quick-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+    <h1>Section 5: cURL — API Testing &amp; HTTP Requests</h1>
+    <p><strong>cURL</strong> is a command-line tool for making HTTP requests. It's perfect for testing APIs, debugging webhooks, and automating HTTP calls — essentially a powerful alternative to Postman that works in your terminal.</p>
+
+    <div class="note">
+        <strong>What is cURL?</strong><br>
+        cURL (Client URL) lets you send HTTP/HTTPS requests directly from the terminal. It supports all HTTP methods (GET, POST, PUT, DELETE, PATCH, etc.), headers, authentication, cookies, file uploads, and more. It's installed by default on most Linux/macOS systems.
+    </div>
+
+    <!-- ── BASIC SYNTAX ── -->
+    <h2>Basic Syntax</h2>
+
+    <div class="command">
+        <div class="title">curl URL</div>
+        <div class="usage">Usage: Make a simple GET request</div>
+        <div class="example">curl https://api.example.com/users</div>
+        <div class="description">Description: Fetches the resource at the URL and prints the response to the terminal.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -o filename URL</div>
+        <div class="usage">Usage: Save response to a file instead of printing to terminal</div>
+        <div class="example">curl -o response.json https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -O URL</div>
+        <div class="usage">Usage: Download file and save with original filename</div>
+        <div class="example">curl -O https://example.com/image.jpg</div>
+    </div>
+
+    <!-- ── HTTP METHODS ── -->
+    <h2>HTTP Methods</h2>
+
+    <div class="command">
+        <div class="title">curl -X GET URL</div>
+        <div class="usage">Usage: Explicitly specify GET request (default method)</div>
+        <div class="example">curl -X GET https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -X POST URL</div>
+        <div class="usage">Usage: Send a POST request</div>
+        <div class="example">curl -X POST https://api.example.com/users</div>
+        <div class="description">Description: Usually combined with <code>-d</code> to send data.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -X PUT URL</div>
+        <div class="usage">Usage: Send a PUT request (update entire resource)</div>
+        <div class="example">curl -X PUT https://api.example.com/users/123</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -X PATCH URL</div>
+        <div class="usage">Usage: Send a PATCH request (partial update)</div>
+        <div class="example">curl -X PATCH https://api.example.com/users/123</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -X DELETE URL</div>
+        <div class="usage">Usage: Send a DELETE request</div>
+        <div class="example">curl -X DELETE https://api.example.com/users/123</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -X OPTIONS URL</div>
+        <div class="usage">Usage: Send an OPTIONS request (check allowed methods)</div>
+        <div class="example">curl -X OPTIONS https://api.example.com/users</div>
+    </div>
+
+    <!-- ── SENDING DATA ── -->
+    <h2>Sending Data (POST / PUT / PATCH)</h2>
+
+    <div class="command">
+        <div class="title">curl -d "param=value" URL</div>
+        <div class="usage">Usage: Send form data (application/x-www-form-urlencoded)</div>
+        <div class="example">curl -X POST -d "name=John&age=30" https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -d '{"key":"value"}' URL</div>
+        <div class="usage">Usage: Send raw data (string format)</div>
+        <div class="example">curl -X POST -d '{"name":"John","age":30}' https://api.example.com/users</div>
+        <div class="description">Description: Works for JSON, XML, or any plain text data. Note the single quotes around data.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -d @filename URL</div>
+        <div class="usage">Usage: Send data from a file</div>
+        <div class="example">curl -X POST -d @data.json https://api.example.com/users</div>
+        <div class="description">Description: Useful for sending large payloads stored in a file.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -F "file=@/path/to/file" URL</div>
+        <div class="usage">Usage: Upload a file (multipart/form-data)</div>
+        <div class="example">curl -X POST -F "file=@/home/user/photo.jpg" https://api.example.com/upload</div>
+        <div class="description">Description: Use -F for file uploads. Can upload multiple files with multiple -F flags.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -F "field=value" -F "file=@/path" URL</div>
+        <div class="usage">Usage: Send mixed form data and file upload</div>
+        <div class="example">curl -X POST -F "name=John" -F "avatar=@profile.jpg" https://api.example.com/users</div>
+    </div>
+
+    <!-- ── HEADERS ── -->
+    <h2>Headers &amp; Content-Type</h2>
+
+    <div class="command">
+        <div class="title">curl -H "Header: value" URL</div>
+        <div class="usage">Usage: Add a custom header to the request</div>
+        <div class="example">curl -H "Accept: application/json" https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -H "Content-Type: application/json" -d '{}' URL</div>
+        <div class="usage">Usage: Set Content-Type header (common for JSON APIs)</div>
+        <div class="example">curl -X POST -H "Content-Type: application/json" -d '{"name":"John"}' https://api.example.com/users</div>
+        <div class="description">Description: Many APIs require explicit Content-Type: application/json header.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -H "Authorization: Bearer TOKEN" URL</div>
+        <div class="usage">Usage: Send Bearer token for authentication</div>
+        <div class="example">curl -H "Authorization: Bearer eyJhbGc..." https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -H "Authorization: Basic BASE64" URL</div>
+        <div class="usage">Usage: Send Basic authentication (username:password in base64)</div>
+        <div class="example">curl -H "Authorization: Basic dXNlcjpwYXNz" https://api.example.com/users</div>
+        <div class="description">Description: Encode username:password as base64 first.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -u username:password URL</div>
+        <div class="usage">Usage: Shorthand for Basic authentication</div>
+        <div class="example">curl -u user:pass https://api.example.com/users</div>
+        <div class="description">Description: cURL automatically encodes this as Basic auth.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -H "User-Agent: MyApp/1.0" URL</div>
+        <div class="usage">Usage: Set a custom User-Agent header</div>
+        <div class="example">curl -H "User-Agent: MyPythonScript/1.0" https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -H "Header: value" -H "Another: value" URL</div>
+        <div class="usage">Usage: Add multiple headers</div>
+        <div class="example">curl -H "Authorization: Bearer token123" -H "X-Custom: data" https://api.example.com/users</div>
+    </div>
+
+    <!-- ── VIEWING RESPONSE DETAILS ── -->
+    <h2>Response Details &amp; Debugging</h2>
+
+    <div class="command">
+        <div class="title">curl -i URL</div>
+        <div class="usage">Usage: Show response headers + body</div>
+        <div class="example">curl -i https://api.example.com/users</div>
+        <div class="description">Description: Prints HTTP status line, headers, and response body.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -I URL</div>
+        <div class="usage">Usage: Show only response headers (HEAD request)</div>
+        <div class="example">curl -I https://api.example.com/users</div>
+        <div class="description">Description: Useful for checking status code and headers without downloading the body.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -v URL</div>
+        <div class="usage">Usage: Verbose mode — show full request and response</div>
+        <div class="example">curl -v https://api.example.com/users</div>
+        <div class="description">Description: Shows the entire HTTP conversation, including headers, SSL details, and timing.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -vv URL</div>
+        <div class="usage">Usage: Very verbose mode — even more detailed output</div>
+        <div class="example">curl -vv https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -w "@format.txt" URL</div>
+        <div class="usage">Usage: Format the response output</div>
+        <div class="example">curl -w "\nStatus: %{http_code}\nTime: %{time_total}\n" https://api.example.com/users</div>
+        <div class="description">Description: Common format variables: %{http_code}, %{time_total}, %{time_connect}, %{size_download}.</div>
+    </div>
+
+    <!-- ── QUERY PARAMETERS ── -->
+    <h2>Query Parameters &amp; URL Encoding</h2>
+
+    <div class="command">
+        <div class="title">curl "URL?param=value"</div>
+        <div class="usage">Usage: Add query parameters directly to URL</div>
+        <div class="example">curl "https://api.example.com/users?age=30&city=NYC"</div>
+        <div class="description">Description: Quote the URL if it contains special characters.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -G -d "param=value" URL</div>
+        <div class="usage">Usage: Use -G to convert POST data into query parameters</div>
+        <div class="example">curl -G -d "age=30" -d "city=NYC" https://api.example.com/users</div>
+        <div class="description">Description: Useful for building query strings programmatically.</div>
+    </div>
+
+    <!-- ── COOKIES & SESSIONS ── -->
+    <h2>Cookies &amp; Session Management</h2>
+
+    <div class="command">
+        <div class="title">curl -b "name=value" URL</div>
+        <div class="usage">Usage: Send a cookie in the request</div>
+        <div class="example">curl -b "session_id=abc123" https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -b cookiefile.txt URL</div>
+        <div class="usage">Usage: Send cookies from a file</div>
+        <div class="example">curl -b cookies.txt https://api.example.com/users</div>
+        <div class="description">Description: File should be in Netscape cookie format.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -c cookiefile.txt URL</div>
+        <div class="usage">Usage: Save cookies from response to a file</div>
+        <div class="example">curl -c cookies.txt https://api.example.com/login</div>
+        <div class="description">Description: Useful for maintaining sessions across multiple requests.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -b cookies.txt -c cookies.txt URL</div>
+        <div class="usage">Usage: Use and update cookies in same file</div>
+        <div class="example">curl -b cookies.txt -c cookies.txt https://api.example.com/users</div>
+    </div>
+
+    <!-- ── REDIRECTS & FOLLOWS ── -->
+    <h2>Redirects &amp; Following Links</h2>
+
+    <div class="command">
+        <div class="title">curl -L URL</div>
+        <div class="usage">Usage: Follow HTTP redirects automatically</div>
+        <div class="example">curl -L https://example.com (if redirected to another URL)</div>
+        <div class="description">Description: By default, cURL stops at a redirect. -L makes it follow 3xx responses.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -L -m 3 URL</div>
+        <div class="usage">Usage: Follow redirects but limit to max 3 hops</div>
+        <div class="example">curl -L -m 3 https://example.com</div>
+    </div>
+
+    <!-- ── SSL/TLS & CERTIFICATES ── -->
+    <h2>SSL/TLS &amp; HTTPS</h2>
+
+    <div class="command">
+        <div class="title">curl --insecure https://URL</div>
+        <div class="usage">Usage: Ignore SSL certificate verification (not recommended for production)</div>
+        <div class="example">curl --insecure https://self-signed.example.com</div>
+        <div class="description">Description: Useful for testing with self-signed certificates, but never use in production.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl --cacert /path/to/cert.pem https://URL</div>
+        <div class="usage">Usage: Specify a custom CA certificate</div>
+        <div class="example">curl --cacert /etc/ssl/certs/custom-ca.pem https://api.example.com</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl --cert /path/to/cert.pem --key /path/to/key.pem https://URL</div>
+        <div class="usage">Usage: Client certificate authentication</div>
+        <div class="example">curl --cert client.pem --key client-key.pem https://secure-api.example.com</div>
+    </div>
+
+    <!-- ── TIMEOUTS & RETRIES ── -->
+    <h2>Timeouts &amp; Performance</h2>
+
+    <div class="command">
+        <div class="title">curl --max-time 10 URL</div>
+        <div class="usage">Usage: Set maximum time for the entire operation (in seconds)</div>
+        <div class="example">curl --max-time 10 https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl --connect-timeout 5 URL</div>
+        <div class="usage">Usage: Set timeout for connection phase only</div>
+        <div class="example">curl --connect-timeout 5 https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl --retry 3 URL</div>
+        <div class="usage">Usage: Automatically retry on transient network errors</div>
+        <div class="example">curl --retry 3 https://api.example.com/users</div>
+    </div>
+
+    <!-- ── PROXIES ── -->
+    <h2>Proxies</h2>
+
+    <div class="command">
+        <div class="title">curl -x proxy-host:port URL</div>
+        <div class="usage">Usage: Route request through a proxy</div>
+        <div class="example">curl -x http://proxy.company.com:8080 https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -x user:pass@proxy:port URL</div>
+        <div class="usage">Usage: Proxy with authentication</div>
+        <div class="example">curl -x user:pass@proxy.company.com:8080 https://api.example.com/users</div>
+    </div>
+
+    <!-- ── COMPRESSION ── -->
+    <h2>Compression &amp; Encoding</h2>
+
+    <div class="command">
+        <div class="title">curl --compressed URL</div>
+        <div class="usage">Usage: Request compressed response and decompress automatically</div>
+        <div class="example">curl --compressed https://api.example.com/users</example>
+    </div>
+
+    <!-- ── RANGE REQUESTS ── -->
+    <h2>Range Requests &amp; Resuming Downloads</h2>
+
+    <div class="command">
+        <div class="title">curl -r 0-1023 URL</div>
+        <div class="usage">Usage: Download only bytes 0 to 1023 (range request)</div>
+        <div class="example">curl -r 0-1023 https://example.com/largefile.zip</example>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -C - URL</div>
+        <div class="usage">Usage: Resume a partial download</div>
+        <div class="example">curl -C - -o largefile.zip https://example.com/largefile.zip</example>
+        <div class="description">Description: Resumes from where it left off. Useful for large file downloads.</div>
+    </div>
+
+    <!-- ── MULTIPLE REQUESTS ── -->
+    <h2>Multiple Requests &amp; Batch Operations</h2>
+
+    <div class="command">
+        <div class="title">curl URL1 URL2 URL3</div>
+        <div class="usage">Usage: Make multiple sequential requests</div>
+        <div class="example">curl https://api.example.com/users https://api.example.com/posts https://api.example.com/comments</example>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -Z URL1 URL2</div>
+        <div class="usage">Usage: Perform parallel transfers (requires libcurl with multiplex support)</div>
+        <div class="example">curl -Z https://api.example.com/users https://api.example.com/posts</example>
+    </div>
+
+    <!-- ── PERFORMANCE ANALYSIS ── -->
+    <h2>Performance Analysis &amp; Timing</h2>
+
+    <div class="command">
+        <div class="title">curl -w "%{http_code}\n" -o /dev/null -s URL</div>
+        <div class="usage">Usage: Show only HTTP status code (suppress other output)</div>
+        <div class="example">curl -w "%{http_code}\n" -o /dev/null -s https://api.example.com/users</example>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -w "Time: %{time_total}s\n" -o /dev/null -s URL</div>
+        <div class="usage">Usage: Show total response time</div>
+        <div class="example">curl -w "Total time: %{time_total}s\n" -o /dev/null -s https://api.example.com/users</example>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -w "@timings.txt" -o /dev/null -s URL</div>
+        <div class="usage">Usage: Show detailed timing breakdown</div>
+        <div class="example">curl -w "DNS: %{time_namelookup}s\nConnect: %{time_connect}s\nTotal: %{time_total}s\n" -o /dev/null -s https://api.example.com/users</example>
+    </div>
+
+    <!-- ── OUTPUT OPTIONS ── -->
+    <h2>Output &amp; Formatting</h2>
+
+    <div class="command">
+        <div class="title">curl -s URL</div>
+        <div class="usage">Usage: Silent mode (suppress progress/error information)</div>
+        <div class="example">curl -s https://api.example.com/users</example>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -S URL</div>
+        <div class="usage">Usage: Show errors even in silent mode</div>
+        <div class="example">curl -s -S https://api.example.com/users</example>
+    </div>
+
+    <div class="command">
+        <div class="title">curl -# URL</div>
+        <div class="usage">Usage: Show progress as a simple progress bar</div>
+        <div class="example">curl -# https://example.com/largefile.zip</example>
+    </div>
+
+    <!-- ── COMMON USE-CASES ── -->
+    <h2>Common Use-Cases &amp; Examples</h2>
+
+    <div class="command">
+        <div class="title">Test GET endpoint</div>
+        <div class="example">curl https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Test POST with JSON data</div>
+        <div class="example">curl -X POST -H "Content-Type: application/json" -d '{"name":"John","email":"john@example.com"}' https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Test API with Bearer token</div>
+        <div class="example">curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Check API response status code</div>
+        <div class="example">curl -w "%{http_code}\n" -o /dev/null -s https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">View full HTTP request and response</div>
+        <div class="example">curl -v -X POST -H "Content-Type: application/json" -d '{"name":"John"}' https://api.example.com/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Upload a file to API</div>
+        <div class="example">curl -X POST -F "file=@/home/user/document.pdf" -F "description=My Document" https://api.example.com/upload</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Download a file</div>
+        <div class="example">curl -O https://example.com/file.zip</div>
+        <div class="description">Description: Saves with original filename. Use -o filename to specify custom name.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Test API with query parameters</div>
+        <div class="example">curl "https://api.example.com/search?q=nodejs&limit=10&offset=0"</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Test API with Basic auth</div>
+        <div class="example">curl -u admin:password123 https://api.example.com/admin/users</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Update resource with PUT</div>
+        <div class="example">curl -X PUT -H "Content-Type: application/json" -d '{"name":"Jane","email":"jane@example.com"}' https://api.example.com/users/123</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Partial update with PATCH</div>
+        <div class="example">curl -X PATCH -H "Content-Type: application/json" -d '{"email":"newemail@example.com"}' https://api.example.com/users/123</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Delete resource</div>
+        <div class="example">curl -X DELETE https://api.example.com/users/123</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Test webhook (simulate POST from external service)</div>
+        <div class="example">curl -X POST -H "Content-Type: application/json" -d '{"event":"order.created","id":123}' https://your-app.com/webhooks/orders</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Monitor API endpoint with polling</div>
+        <div class="example">watch -n 2 'curl -s https://api.example.com/status | jq .'</div>
+        <div class="description">Description: Check API status every 2 seconds. Requires jq for JSON formatting.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Benchmark API endpoint</div>
+        <div class="example">for i in {1..10}; do curl -w "Response %{http_code} - Time: %{time_total}s\n" -o /dev/null -s https://api.example.com/users; done</div>
+        <div class="description">Description: Send 10 requests and display status code and timing for each.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Chain APIs (pass output of one to another)</div>
+        <div class="example">USER_ID=$(curl -s https://api.example.com/users | jq -r '.[0].id'); curl https://api.example.com/users/$USER_ID</div>
+        <div class="description">Description: Requires jq to parse JSON. Gets first user's ID, then fetches that user's details.</div>
+    </div>
+
+    <!-- ── POSTMAN vs CURL ── -->
+    <h2>cURL vs Postman Comparison</h2>
+
+    <table class="quick-table">
+        <tr>
+            <th>Feature</th>
+            <th>Postman</th>
+            <th>cURL</th>
+        </tr>
+        <tr>
+            <td><strong>Cost</strong></td>
+            <td>Free (basic), Paid (teams)</td>
+            <td>Free, Open-source</td>
+        </tr>
+        <tr>
+            <td><strong>UI</strong></td>
+            <td>Graphical, user-friendly</td>
+            <td>Command-line</td>
+        </tr>
+        <tr>
+            <td><strong>Setup</strong></td>
+            <td>Download app / use web version</td>
+            <td>Pre-installed on most systems</td>
+        </tr>
+        <tr>
+            <td><strong>Learning Curve</strong></td>
+            <td>Beginner-friendly</td>
+            <td>Steeper, command-line flags</td>
+        </tr>
+        <tr>
+            <td><strong>Automation</strong></td>
+            <td>Collections, scripting (Newman)</td>
+            <td>Shell scripts, loops, piping</td>
+        </tr>
+        <tr>
+            <td><strong>Scripting</strong></td>
+            <td>JavaScript, pre/post-request scripts</td>
+            <td>Bash, shell integration</td>
+        </tr>
+        <tr>
+            <td><strong>Version Control</strong></td>
+            <td>Postman Sync (Postman Cloud)</td>
+            <td>Store curl commands in Git</td>
+        </tr>
+        <tr>
+            <td><strong>Debugging</strong></td>
+            <td>Network inspector, visual response</td>
+            <td>-v, -vv flags, verbose output</td>
+        </tr>
+        <tr>
+            <td><strong>CI/CD Integration</strong></td>
+            <td>Newman CLI, easy integration</td>
+            <td>Native, built-in to most CI systems</td>
+        </tr>
+        <tr>
+            <td><strong>Resources</strong></td>
+            <td>Storage, docs, collaboration</td>
+            <td>Lightweight, minimal footprint</td>
+        </tr>
+    </table>
+
+    <div class="tip">
+        <strong>When to use cURL over Postman:</strong><br>
+        • Server-side/CLI environments (no GUI)<br>
+        • CI/CD pipelines and automation<br>
+        • Quick one-off API tests<br>
+        • Version controlling API requests (shell scripts)<br>
+        • Systems with minimal resources<br>
+        • Integration with shell scripts and tools (grep, jq, awk)
+    </div>
+
+    <!-- ── TIPS & TRICKS ── -->
+    <h2>Tips &amp; Tricks</h2>
+
+    <div class="command">
+        <div class="title">Generate cURL command from Postman</div>
+        <div class="description">Description: In Postman, click the "&lt;/&gt;" Code button in the top-right → select cURL → copy the generated command. Perfect for moving from Postman to automation scripts.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Pretty-print JSON response</div>
+        <div class="example">curl -s https://api.example.com/users | jq .</example>
+        <div class="description">Description: Pipe to <code>jq</code> (JSON query tool) for formatted output. Install with: <code>apt install jq</code> or <code>brew install jq</code></div>
+    </div>
+
+    <div class="command">
+        <div class="title">Extract specific field from JSON response</div>
+        <div class="example">curl -s https://api.example.com/users | jq '.[0].email'</example>
+        <div class="description">Description: Use jq's query syntax to extract nested fields.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Create curl alias for common requests</div>
+        <div class="example">alias api-get='curl -H "Authorization: Bearer YOUR_TOKEN" -H "Content-Type: application/json"'</div>
+        <div class="description">Description: Add to ~/.bashrc or ~/.zshrc to create shortcuts for frequently used API calls.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Save curl command to shell script</div>
+        <div class="example">cat > api-test.sh << 'EOF'
+#!/bin/bash
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John"}' \
+  https://api.example.com/users
+EOF
+chmod +x api-test.sh
+./api-test.sh</example>
+        <div class="description">Description: Multi-line curl commands work better in shell scripts using backslashes.</div>
+    </div>
+
+</div>
+
+</body>
+</html>
