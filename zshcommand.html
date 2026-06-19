@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zsh Shell Guide for Full Stack Developers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            border-left: 4px solid #6f42c1;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .command {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        .command:last-child {
+            border-bottom: none;
+        }
+        .title {
+            font-size: 18px;
+            color: #6f42c1;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .description, .usage, .example {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .example {
+            background: #f8f8f8;
+            padding: 10px;
+            border-left: 3px solid #6f42c1;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #6f42c1;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .feature-badge {
+            display: inline-block;
+            background: #6f42c1;
+            color: white;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #6f42c1;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .config-box {
+            background: #f4f4f4;
+            padding: 15px;
+            border-left: 4px solid #6f42c1;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+    <h1>Zsh Shell Guide — Modern Development Environment</h1>
+    <p><strong>Zsh</strong> (Z Shell) is a powerful shell that improves upon Bash with better autocompletion, theming, plugins, and modern developer features. Perfect for local development with Node.js, Python, Go, and Docker workflows.</p>
+
+    <div class="note">
+        <strong>Why Zsh?</strong><br>
+        • Better autocompletion and globbing<br>
+        • Plugin ecosystem (Oh My Zsh)<br>
+        • Smart history search<br>
+        • Integrated git support<br>
+        • Beautiful themes (Starship, Powerlevel10k)<br>
+        • Modern tools integration (docker, kubectl, npm)<br>
+        • Compatible with Bash scripts
+    </div>
+
+    <!-- ── INSTALLATION ── -->
+    <h2>Installation &amp; Setup</h2>
+
+    <div class="command">
+        <div class="title">Install Zsh</div>
+        <div class="example">
+# Ubuntu/Debian
+sudo apt install zsh
+
+# macOS
+brew install zsh
+
+# Check version
+zsh --version
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Set Zsh as default shell</div>
+        <div class="example">
+# Change default shell
+chsh -s $(which zsh)
+
+# Verify (logout and log back in)
+echo $SHELL
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Install Oh My Zsh</div>
+        <div class="example">
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# This creates ~/.oh-my-zsh and ~/.zshrc
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Install Starship Prompt</div>
+        <div class="example">
+# Install Starship
+curl -sS https://starship.rs/install.sh | sh
+
+# Add to ~/.zshrc
+eval "$(starship init zsh)"
+        </div>
+        <div class="description">Description: Beautiful, fast, minimal prompt. Shows git status, language versions, etc.</div>
+    </div>
+
+    <!-- ── YOUR CURRENT SETUP ── -->
+    <h2>Your Current Setup Analysis</h2>
+
+    <div class="tip">
+        <strong>✓ Your Setup Includes:</strong><br>
+        • Oh My Zsh framework (organized plugin management)<br>
+        • Starship prompt (beautiful, minimal, fast)<br>
+        • zoxide (smart cd replacement, learns frequently visited dirs)<br>
+        • direnv (directory-specific environment management)<br>
+        • Modern tools: eza, bat, ripgrep, fd<br>
+        • Git integration<br>
+        • Smart keybindings<br>
+        • Auto-suggestions and syntax highlighting<br>
+        • NVM for Node version management<br>
+        • Bun support (fast Node.js alternative)
+    </div>
+
+    <!-- ── PLUGINS ── -->
+    <h2>Plugins &amp; Enhancements</h2>
+
+    <h3>Currently Installed (In Your .zshrc)</h3>
+    <table>
+        <tr>
+            <th>Plugin</th>
+            <th>Purpose</th>
+            <th>What It Does</th>
+        </tr>
+        <tr>
+            <td><code>git</code></td>
+            <td>Git integration</td>
+            <td>Git aliases, branch display, status info</td>
+        </tr>
+        <tr>
+            <td><code>zoxide</code></td>
+            <td>Smart navigation</td>
+            <td>cd replacement that learns frecent dirs</td>
+        </tr>
+        <tr>
+            <td><code>direnv</code></td>
+            <td>Env management</td>
+            <td>Load project-specific environment variables</td>
+        </tr>
+    </table>
+
+    <h3>Recommended Additional Plugins</h3>
+    <div class="command">
+        <div class="title">docker</div>
+        <div class="usage">Usage: Docker command autocompletion and aliases</div>
+        <div class="example">
+# Add to plugins in ~/.zshrc
+plugins=(git docker)
+
+# Provides aliases like 'dps' for 'docker ps'
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">node</div>
+        <div class="usage">Usage: Node.js version management aliases</div>
+        <div class="example">
+# Add to plugins
+plugins=(git node)
+
+# Alias for 'nodeversion', 'nvm', etc.
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">npm</div>
+        <div class="usage">Usage: NPM command autocompletion</div>
+        <div class="example">
+plugins=(git npm)
+
+# Provides aliases: 'npmg' (npm install -g), etc.
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">fzf (Fuzzy Finder)</div>
+        <div class="usage">Usage: Fuzzy search and file selection</div>
+        <div class="example">
+# Install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+# Enables Ctrl+R (history search), Ctrl+T (file search)
+        </div>
+        <div class="description">Description: Powerful fuzzy matching for files and commands. Game-changer for productivity.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">zsh-autosuggestions</div>
+        <div class="usage">Usage: Command suggestions from history</div>
+        <div class="example">
+# Already in your .zshrc!
+# Shows grey suggestions from history as you type
+# Press → or End to accept
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">zsh-syntax-highlighting</div>
+        <div class="usage">Usage: Syntax highlighting while typing</div>
+        <div class="example">
+# Already in your .zshrc!
+# Valid commands turn green, invalid commands red
+        </div>
+    </div>
+
+    <!-- ── ZSH-SPECIFIC FEATURES ── -->
+    <h2>Zsh-Specific Features</h2>
+
+    <h3>Advanced Globbing</h3>
+    <div class="command">
+        <div class="title">ls *.{js,ts}</div>
+        <div class="usage">Usage: Match multiple extensions</div>
+        <div class="example">ls src/**/*.{js,ts,jsx,tsx}</example>
+        <div class="description">Description: Brace expansion for multiple patterns.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">ls **/node_modules</div>
+        <div class="usage">Usage: Recursive glob (** matches any depth)</div>
+        <div class="example">find **/node_modules -name "package.json"</example>
+    </div>
+
+    <div class="command">
+        <div class="title">setopt CASE_GLOB</div>
+        <div class="usage">Usage: Case-sensitive globbing</div>
+        <div class="example">setopt CASE_GLOB</example>
+    </div>
+
+    <h3>History Expansion</h3>
+    <div class="command">
+        <div class="title">!!</div>
+        <div class="usage">Usage: Run last command</div>
+        <div class="example">npm test
+# Made typo, then:
+sudo !!  # Runs with sudo
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">!$</div>
+        <div class="usage">Usage: Last argument of previous command</div>
+        <div class="example">cat longfilename.txt
+less !$  # Opens same file in less
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">!command</div>
+        <div class="usage">Usage: Run last command starting with 'command'</div>
+        <div class="example">!npm  # Runs last npm command</example>
+    </div>
+
+    <h3>Menu Completion</h3>
+    <div class="command">
+        <div class="title">Ctrl+D (in completion menu)</div>
+        <div class="usage">Usage: Delete completion item</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Tab (multiple times)</div>
+        <div class="usage">Usage: Cycle through completions</div>
+        <div class="description">Description: Tab once shows options, again cycles, Shift+Tab goes backward.</div>
+    </div>
+
+    <!-- ── CONFIGURATION ── -->
+    <h2>Configuration Best Practices</h2>
+
+    <div class="command">
+        <div class="title">Structure your .zshrc</div>
+        <div class="usage">Usage: Organize configuration with comments</div>
+        <div class="example">
+# ── PATH ────────────────────────────────────────
+export PATH="$HOME/bin:$PATH"
+
+# ── FUNCTIONS ───────────────────────────────────
+function dev() { cd ~/projects/$1; }
+
+# ── INTEGRATIONS ────────────────────────────────
+eval "$(zoxide init zsh)"
+        </div>
+        <div class="description">Description: Keep .zshrc organized with sections for easy maintenance.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Lazy load heavy integrations</div>
+        <div class="usage">Usage: Conditionally load only if installed</div>
+        <div class="example">
+# Only load if direnv is installed
+command -v direnv >/dev/null 2>&amp;1 && eval "$(direnv hook zsh)"
+
+# Only load if nvm exists
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        </div>
+        <div class="description">Description: Speeds up shell startup by not loading unused tools.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Create .zshrc.local for secrets</div>
+        <div class="usage">Usage: Keep sensitive config out of git</div>
+        <div class="example">
+# At end of ~/.zshrc
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# In ~/.zshrc.local (add to .gitignore!)
+export AWS_ACCESS_KEY_ID="..."
+export SLACK_TOKEN="..."
+        </div>
+    </div>
+
+    <!-- ── DIRENV ── -->
+    <h2>Direnv for Project-Specific Environments</h2>
+
+    <div class="command">
+        <div class="title">Setup direnv for project</div>
+        <div class="usage">Usage: Load project env variables automatically</div>
+        <div class="example">
+# In your project directory
+cd ~/my-project
+direnv edit .
+
+# In the editor (.envrc file), add:
+export NODE_ENV="development"
+export PORT=3000
+export DATABASE_URL="postgresql://..."
+
+# Save and Zsh auto-loads these variables!
+direnv allow .envrc
+        </div>
+        <div class="description">Description: .envrc is gitignored. Different env vars per project automatically!</div>
+    </div>
+
+    <!-- ── NERD FONTS ── -->
+    <h2>Setup Beautiful Terminal (Nerd Fonts)</h2>
+
+    <div class="command">
+        <div class="title">Install Nerd Font</div>
+        <div class="usage">Usage: Enable fancy icons in Zsh</div>
+        <div class="example">
+# Install via homebrew
+brew install --cask font-jetbrains-mono-nerd-font
+
+# Or download from: https://www.nerdfonts.com/
+
+# Set terminal font to JetBrains Mono Nerd Font
+        </div>
+    </div>
+
+    <!-- ── THEME & CUSTOMIZATION ── -->
+    <h2>Starship Prompt Customization</h2>
+
+    <div class="command">
+        <div class="title">Create starship configuration</div>
+        <div class="usage">Usage: Customize Starship prompt</div>
+        <div class="example">
+# Create ~/.config/starship.toml
+touch ~/.config/starship.toml
+
+# Add:
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$docker\
+$line_break\
+$character
+"""
+
+# Show package.json version for Node projects
+[nodejs]
+detect_extensions = ["js", "mjs", "cjs", "ts"]
+detect_files = ["package.json", "package-lock.json"]
+symbol = "⬢ "
+        </div>
+    </div>
+
+    <!-- ── INTEGRATION WORKFLOWS ── -->
+    <h2>Development Workflows</h2>
+
+    <h3>Node.js Development</h3>
+    <div class="command">
+        <div class="title">Quick Node project setup</div>
+        <div class="example">
+# Create .envrc in project
+direnv edit .
+
+# Add:
+export NODE_ENV="development"
+export PORT=3000
+
+# Create .nvmrc
+node --version > .nvmrc
+
+# Zsh + nvm auto-loads correct Node version!
+        </div>
+    </div>
+
+    <h3>Docker Development</h3>
+    <div class="command">
+        <div class="title">Docker compose workflow</div>
+        <div class="example">
+# Create project-specific docker env
+direnv edit .
+
+# Add:
+export COMPOSE_PROJECT_NAME="myapp"
+export DOCKER_BUILDKIT=1
+
+# Docker commands in .zshrc
+dlog() { docker logs -f $1; }
+dsh() { docker exec -it $1 /bin/bash; }
+        </div>
+    </div>
+
+    <h3>Python Development</h3>
+    <div class="command">
+        <div class="title">Python venv integration</div>
+        <div class="example">
+# In project .envrc:
+layout python3
+
+# Zsh auto-activates virtual environment!
+        </div>
+    </div>
+
+    <!-- ── PERFORMANCE ── -->
+    <h2>Performance Optimization</h2>
+
+    <div class="command">
+        <div class="title">Check shell startup time</div>
+        <div class="example">
+time zsh -i -c exit
+        </div>
+        <div class="description">Description: Measure startup performance to find slow plugins.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Profile Zsh startup</div>
+        <div class="example">
+# At top of ~/.zshrc
+zmodload zsh/zprof
+
+# ... rest of .zshrc ...
+
+# At bottom of ~/.zshrc
+zprof
+        </div>
+        <div class="description">Description: Shows which parts are slow. Remove heavy tools if not needed.</div>
+    </div>
+
+    <div class="tip">
+        <strong>Performance Tips:</strong><br>
+        • Use <code>command -v</code> checks (faster than full commands)<br>
+        • Lazy-load NVM/RVM only when needed<br>
+        • Use Starship instead of heavy themes<br>
+        • Cache completion data when possible<br>
+        • Remove unused Oh My Zsh plugins<br>
+        • Consider switching from NVM to Volta or asdf for faster loading
+    </div>
+
+    <!-- ── ZSH VS BASH ── -->
+    <h2>Zsh vs Bash Differences</h2>
+
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Bash</th>
+            <th>Zsh</th>
+        </tr>
+        <tr>
+            <td>Autocompletion</td>
+            <td>Basic</td>
+            <td>Advanced & customizable</td>
+        </tr>
+        <tr>
+            <td>Globbing</td>
+            <td>Standard</td>
+            <td>Better pattern matching</td>
+        </tr>
+        <tr>
+            <td>Theme support</td>
+            <td>Limited</td>
+            <td>Excellent (Oh My Zsh)</td>
+        </tr>
+        <tr>
+            <td>Plugin system</td>
+            <td>Manual</td>
+            <td>Built-in (Oh My Zsh)</td>
+        </tr>
+        <tr>
+            <td>History search</td>
+            <td>Ctrl+R only</td>
+            <td>Rich with suggestions</td>
+        </tr>
+        <tr>
+            <td>Arrays</td>
+            <td>0-indexed</td>
+            <td>1-indexed</td>
+        </tr>
+        <tr>
+            <td>Script compatibility</td>
+            <td>Good</td>
+            <td>Mostly compatible</td>
+        </tr>
+    </table>
+
+    <div class="note">
+        <strong>Important:</strong> Always use <code>#!/bin/bash</code> in scripts for portability, not <code>#!/bin/zsh</code>. Scripts may run on servers with only Bash!
+    </div>
+
+</div>
+
+</body>
+</html>

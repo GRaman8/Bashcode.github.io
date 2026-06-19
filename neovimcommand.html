@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 6: Neovim & NvChad Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            border-left: 4px solid #007BFF;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        .command {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        .command:last-child {
+            border-bottom: none;
+        }
+        .title {
+            font-size: 18px;
+            color: #007BFF;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .description, .usage, .other-ways, .example {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .example {
+            background: #f8f8f8;
+            padding: 10px;
+            border-left: 3px solid #007BFF;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .feature-badge {
+            display: inline-block;
+            background: #007BFF;
+            color: white;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .feature-badge.nvchad { background: #28a745; }
+        .feature-badge.neovim { background: #6f42c1; }
+        .feature-badge.vim { background: #fd7e14; }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background: #007BFF;
+            color: white;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .plugin-list {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #007BFF;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+    <h1>Section 6: Neovim &amp; NvChad — Modern Terminal Text Editing</h1>
+    <p><strong>Neovim</strong> is a modern fork of Vim with better extensibility, async support, and a Lua-based configuration. <strong>NvChad</strong> is a feature-rich Neovim config distribution that comes pre-configured with beautiful UI, plugins, and sensible defaults — making Neovim user-friendly out of the box.</p>
+
+    <div class="note">
+        <strong>What's the difference?</strong><br>
+        <strong>Vim:</strong> Classic, stable, traditional configuration (vimscript).<br>
+        <strong>Neovim:</strong> Modern fork of Vim with Lua scripting, async/await, better plugin architecture, terminal support.<br>
+        <strong>NvChad:</strong> Pre-configured Neovim distribution with themes, plugins, keybindings, and LazyVim-style plugin management built-in.
+    </div>
+
+    <!-- ── INSTALLATION ── -->
+    <h2>Installation &amp; Setup</h2>
+
+    <div class="command">
+        <div class="title">Linux/macOS: Install Neovim</div>
+        <div class="example">
+# Ubuntu/Debian
+sudo apt install neovim
+
+# macOS (Homebrew)
+brew install neovim
+
+# Using AppImage (any Linux)
+wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+chmod +x nvim.appimage
+sudo mv nvim.appimage /usr/local/bin/nvim
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Install NvChad (Quick Setup)</div>
+        <div class="example">
+git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+nvim
+# NvChad will auto-install plugins on first launch
+        </div>
+        <div class="description">Description: NvChad replaces your default Neovim config. Your custom configs go in ~/.config/nvim/lua/custom/.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Verify Installation</div>
+        <div class="example">nvim --version</div>
+    </div>
+
+    <!-- ── BASIC USAGE ── -->
+    <h2>Basic Usage (Same as Vim)</h2>
+
+    <div class="command">
+        <div class="title">nvim filename</div>
+        <div class="usage">Usage: Open file in Neovim</div>
+        <div class="example">nvim app.py</div>
+    </div>
+
+    <div class="command">
+        <div class="title">nvim +N filename</div>
+        <div class="usage">Usage: Open file and jump to line N</div>
+        <div class="example">nvim +42 app.py</div>
+    </div>
+
+    <div class="command">
+        <div class="title">nvim</div>
+        <div class="usage">Usage: Open Neovim with empty buffer</div>
+    </div>
+
+    <div class="note">
+        <strong>All Vim commands work in Neovim!</strong><br>
+        Since Neovim is based on Vim, all standard Vim commands (hjkl navigation, dd, yy, :wq, /pattern, etc.) work identically. Refer to the Vim guide for these fundamentals.
+    </div>
+
+    <!-- ── NVCHAD KEYBINDINGS ── -->
+    <h2>NvChad Default Keybindings</h2>
+
+    <div class="command">
+        <div class="title">&lt;space&gt; <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Leader key (main keymap prefix)</div>
+        <div class="description">Description: Most NvChad commands start with &lt;space&gt;. Example: &lt;space&gt;ff opens file finder.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;ff</div>
+        <div class="usage">Usage: Open file finder (Telescope)</div>
+        <div class="description">Description: Search and open any file in the project. Start typing to filter.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;fw</div>
+        <div class="usage">Usage: Find word — search for text across all files</div>
+        <div class="description">Description: Great for finding variable definitions or usage.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;fb</div>
+        <div class="usage">Usage: Show open buffers (tabs)</div>
+        <div class="description">Description: Switch between open files quickly.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;gb</div>
+        <div class="usage">Usage: Git branches (if Git installed)</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;cm</div>
+        <div class="usage">Usage: Toggle comment on current line</div>
+        <div class="description">Description: Also works in Visual mode to comment/uncomment blocks.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;nh</div>
+        <div class="usage">Usage: Clear search highlight</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;e</div>
+        <div class="usage">Usage: Toggle file explorer/file tree (NvimTree)</div>
+        <div class="description">Description: Browse project directory structure on the left side.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;C-n&gt;</div>
+        <div class="usage">Usage: Toggle NvimTree (file explorer)</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;n</div>
+        <div class="usage">Usage: Create new file (in NvimTree)</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;th</div>
+        <div class="usage">Usage: Change theme/colorscheme</div>
+        <div class="description">Description: NvChad comes with multiple beautiful themes. Browse and select.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;fd</div>
+        <div class="usage">Usage: Format document</div>
+        <div class="description">Description: Auto-format code using installed formatters (Prettier, Black, etc.).</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;ra</div>
+        <div class="usage">Usage: Code actions (LSP)</div>
+        <div class="description">Description: Quick-fix suggestions and refactoring options based on Language Server.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;rn</div>
+        <div class="usage">Usage: Rename symbol (LSP)</div>
+        <div class="description">Description: Rename variable/function across the file or project.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">gd</div>
+        <div class="usage">Usage: Go to definition (LSP)</div>
+        <div class="description">Description: Jump to where a function/variable is defined.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">K</div>
+        <div class="usage">Usage: Show documentation/hover info (LSP)</div>
+        <div class="description">Description: Display type info, docstrings, and function signatures.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;ca</div>
+        <div class="usage">Usage: Show LSP diagnostics (errors/warnings)</div>
+    </div>
+
+    <!-- ── NVCHAD FEATURES ── -->
+    <h2>NvChad — Key Features &amp; Plugins</h2>
+
+    <div class="command">
+        <div class="title">Telescope <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="description">Description: Powerful fuzzy finder for files, buffers, and live grep. Use &lt;space&gt;ff, &lt;space&gt;fw, &lt;space&gt;fb.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">NvimTree <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="description">Description: File explorer sidebar. Toggle with &lt;C-n&gt; or &lt;space&gt;e. Navigate with arrow keys, 'a' to create, 'd' to delete, 'r' to rename.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Treesitter <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="description">Description: Advanced syntax highlighting and code understanding. Better than regex-based highlighting.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Language Server Protocol (LSP) <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="description">Description: Code intelligence — go to definition, rename, documentation, diagnostics. Supports 50+ languages.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Mason <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="description">Description: LSP/tool package manager. Install language servers, formatters, linters easily. Use &lt;space&gt;ma.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">null-ls <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="description">Description: Bridges external formatters and linters to NvChad (Prettier, Black, ESLint, etc.).</div>
+    </div>
+
+    <div class="command">
+        <div class="title">nvim-cmp <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="description">Description: Autocomplete engine with support for LSP, snippets, path completion, and more.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Leap <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="description">Description: Fast, precise cursor motion. Better than f/F searching. Press 's' to activate, then type 2 chars to jump.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Gitsigns <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="description">Description: Show Git status in the left gutter — added/modified/deleted lines at a glance.</div>
+    </div>
+
+    <!-- ── NEOVIM-SPECIFIC FEATURES ── -->
+    <h2>Neovim-Specific Features (Not in Vim)</h2>
+
+    <div class="command">
+        <div class="title">:terminal or :te <span class="feature-badge neovim">Neovim</span></div>
+        <div class="usage">Usage: Open terminal emulator inside Neovim</div>
+        <div class="example">:terminal</div>
+        <div class="description">Description: Run shell commands without leaving the editor. Press i to enter terminal mode, Esc to return to Normal mode.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">:te python script.py <span class="feature-badge neovim">Neovim</span></div>
+        <div class="usage">Usage: Run specific command in terminal buffer</div>
+        <div class="example">:te npm start</example>
+    </div>
+
+    <div class="command">
+        <div class="title">:split | terminal <span class="feature-badge neovim">Neovim</span></div>
+        <div class="usage">Usage: Open terminal in a split window</div>
+        <div class="example">:split | terminal</example>
+    </div>
+
+    <div class="command">
+        <div class="title">Async job control <span class="feature-badge neovim">Neovim</span></div>
+        <div class="description">Description: Neovim's Lua API allows async operations without blocking the UI. This powers plugins like linting and formatting.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">nvim.lsp (LSP client) <span class="feature-badge neovim">Neovim</span></div>
+        <div class="description">Description: Built-in Language Server Protocol support (Vim requires vim-lsp plugin).</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Lua configuration <span class="feature-badge neovim">Neovim</span></div>
+        <div class="description">Description: Configure Neovim with Lua instead of Vimscript. More powerful, faster, and modern.</div>
+    </div>
+
+    <!-- ── CONFIGURATION ── -->
+    <h2>Configuration Basics</h2>
+
+    <div class="command">
+        <div class="title">Config location</div>
+        <div class="example">~/.config/nvim/init.lua (Neovim with Lua)</div>
+        <div class="description">Description: Main config file. For NvChad, customize in ~/.config/nvim/lua/custom/</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Check configuration location</div>
+        <div class="example">nvim --version | grep "Vimrc\\|Config"</example>
+        <div class="or">OR open Neovim and type: :echo $MYVIMRC</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Reload configuration</div>
+        <div class="example">:source ~/.config/nvim/init.lua</div>
+        <div class="or">OR in Neovim: :luafile %</div>
+    </div>
+
+    <div class="command">
+        <div class="title">NvChad custom config directory</div>
+        <div class="example">~/.config/nvim/lua/custom/</div>
+        <div class="description">Description: All custom settings go here. NvChad loads files from this directory.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Set options (Lua)</div>
+        <div class="example">
+-- In init.lua or custom config
+vim.opt.number = true          -- Show line numbers
+vim.opt.relativenumber = true  -- Relative line numbers
+vim.opt.tabstop = 4            -- Tab width
+vim.opt.expandtab = true       -- Use spaces instead of tabs
+vim.opt.autoindent = true      -- Auto-indent
+vim.opt.ignorecase = true      -- Case-insensitive search
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Custom keybindings (Lua)</div>
+        <div class="example">
+local map = vim.keymap.set
+map('n', '&lt;space&gt;w', ':write&lt;CR&gt;', { noremap = true })
+map('i', '&lt;C-s&gt;', '&lt;Esc&gt;:write&lt;CR&gt;', { noremap = true })
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Install plugins (using lazy.nvim)</div>
+        <div class="example">
+-- In ~/.config/nvim/lua/custom/plugins.lua
+return {
+  {
+    "plugin-author/plugin-name",
+    config = function()
+      require("plugin-name").setup({})
+    end
+  }
+}
+        </div>
+        <div class="description">Description: NvChad uses lazy.nvim for plugin management. Plugins auto-install on startup.</div>
+    </div>
+
+    <!-- ── WINDOWS & SPLITS ── -->
+    <h2>Windows, Splits &amp; Tabs</h2>
+
+    <div class="command">
+        <div class="title">:split or :sp <span class="feature-badge vim">Vim</span></div>
+        <div class="usage">Usage: Horizontal split</div>
+        <div class="example">:sp filename</example>
+    </div>
+
+    <div class="command">
+        <div class="title">:vsplit or :vsp <span class="feature-badge vim">Vim</span></div>
+        <div class="usage">Usage: Vertical split</div>
+        <div class="example">:vsp filename</example>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;C-w&gt; then hjkl <span class="feature-badge vim">Vim</span></div>
+        <div class="usage">Usage: Move between splits</div>
+        <div class="example">&lt;C-w&gt;h (left), &lt;C-w&gt;l (right), &lt;C-w&gt;j (down), &lt;C-w&gt;k (up)</example>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;C-w&gt;&lt;C-w&gt; <span class="feature-badge vim">Vim</span></div>
+        <div class="usage">Usage: Switch to next split (cycle)</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;C-w&gt;= <span class="feature-badge vim">Vim</span></div>
+        <div class="usage">Usage: Equalize split sizes</div>
+    </div>
+
+    <div class="command">
+        <div class="title">:tabnew or :tabn <span class="feature-badge vim">Vim</span></div>
+        <div class="usage">Usage: Create new tab</div>
+    </div>
+
+    <div class="command">
+        <div class="title">gt or gT <span class="feature-badge vim">Vim</span></div>
+        <div class="usage">Usage: Go to next/previous tab</div>
+    </div>
+
+    <!-- ── LSP & CODE INTELLIGENCE ── -->
+    <h2>LSP &amp; Code Intelligence (NvChad)</h2>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;ma <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Open Mason (LSP/tool installer)</div>
+        <div class="description">Description: Install language servers (pyright, tsserver, rust-analyzer, etc.), formatters, and linters.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">gd <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Go to definition</div>
+        <div class="example">Position cursor on function name, press 'gd' to jump to definition</example>
+    </div>
+
+    <div class="command">
+        <div class="title">K <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Show hover documentation</div>
+        <div class="description">Description: Display type info, docstrings, parameter hints.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;rn <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Rename symbol (refactor)</div>
+        <div class="example">Select variable, press &lt;space&gt;rn, type new name</example>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;ca <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Code actions / quick fixes</div>
+        <div class="description">Description: See available fixes/refactorings for errors and warnings.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;fd <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Format code</div>
+        <div class="description">Description: Auto-format entire file using configured formatter (Prettier, Black, etc.).</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;wa <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Add workspace folder (LSP)</div>
+    </div>
+
+    <!-- ── SEARCH & TELESCOPE ── -->
+    <h2>Search with Telescope (NvChad)</h2>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;ff <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Find files by name</div>
+        <div class="description">Description: Fuzzy search all project files. Type to filter, &lt;CR&gt; to open.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;fw <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Find word — grep across all files</div>
+        <div class="description">Description: Search for text patterns in entire project.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;fb <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Find buffers (open files)</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;fh <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Find help tags</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;fo <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Find old files (recent files)</div>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;C-/&gt; (in Telescope) <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Toggle preview/help in Telescope</div>
+    </div>
+
+    <!-- ── COMMENTS ── -->
+    <h2>Comments &amp; Toggles (NvChad)</h2>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;cm <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Toggle comment on current line</div>
+        <div class="example">Position cursor on a line, press &lt;space&gt;cm to comment/uncomment</example>
+    </div>
+
+    <div class="command">
+        <div class="title">&lt;space&gt;cm (Visual mode) <span class="feature-badge nvchad">NvChad</span></div>
+        <div class="usage">Usage: Comment/uncomment a block</div>
+        <div class="example">Select lines with V, press &lt;space&gt;cm to comment entire block</example>
+    </div>
+
+    <!-- ── NERD FONTS ── -->
+    <h2>Nerd Fonts for Icons (NvChad)</h2>
+
+    <div class="command">
+        <div class="title">Install Nerd Font</div>
+        <div class="description">Description: NvChad uses Nerd Fonts for beautiful icons in file tree and UI. Install from https://www.nerdfonts.com/</div>
+        <div class="example">
+# Example: JetBrains Mono Nerd Font
+# Download and install font, then set terminal font to it
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Set terminal font</div>
+        <div class="description">Description: After installing Nerd Font, configure your terminal to use it. Example for Ubuntu Terminal: Preferences → Profile → Custom font.</div>
+    </div>
+
+    <!-- ── COMPARISON ── -->
+    <h2>Vim vs Neovim vs NvChad</h2>
+
+    <table class="comparison-table">
+        <tr>
+            <th>Feature</th>
+            <th>Vim</th>
+            <th>Neovim</th>
+            <th>NvChad</th>
+        </tr>
+        <tr>
+            <td><strong>Learning Curve</strong></td>
+            <td>Moderate</td>
+            <td>Same as Vim</td>
+            <td>Easy (pre-configured)</td>
+        </tr>
+        <tr>
+            <td><strong>Out-of-box Experience</strong></td>
+            <td>Minimal config needed</td>
+            <td>Requires custom config</td>
+            <td>Beautiful UI, ready to use</td>
+        </tr>
+        <tr>
+            <td><strong>Configuration Language</strong></td>
+            <td>Vimscript</td>
+            <td>Vimscript or Lua</td>
+            <td>Lua (modern)</td>
+        </tr>
+        <tr>
+            <td><strong>Plugin Management</strong></td>
+            <td>Manual or plugin manager</td>
+            <td>Plugin manager (vim-plug, etc.)</td>
+            <td>lazy.nvim (built-in)</td>
+        </tr>
+        <tr>
+            <td><strong>LSP Support</strong></td>
+            <td>Via plugin (coc.nvim)</td>
+            <td>Native LSP client</td>
+            <td>Native LSP + pre-configured</td>
+        </tr>
+        <tr>
+            <td><strong>Async Support</strong></td>
+            <td>Limited</td>
+            <td>Full async/await</td>
+            <td>Full async/await</td>
+        </tr>
+        <tr>
+            <td><strong>Terminal Integration</strong></td>
+            <td>No</td>
+            <td>Yes (:terminal)</td>
+            <td>Yes (:terminal)</td>
+        </tr>
+        <tr>
+            <td><strong>Treesitter</strong></td>
+            <td>No</td>
+            <td>Via plugin</td>
+            <td>Pre-configured</td>
+        </tr>
+        <tr>
+            <td><strong>File Explorer</strong></td>
+            <td>netrw (basic)</td>
+            <td>Via plugin</td>
+            <td>NvimTree (beautiful)</td>
+        </tr>
+        <tr>
+            <td><strong>Fuzzy Finder</strong></td>
+            <td>Via plugin</td>
+            <td>Via plugin (Telescope)</td>
+            <td>Telescope (pre-configured)</td>
+        </tr>
+        <tr>
+            <td><strong>Setup Time</strong></td>
+            <td>Minutes</td>
+            <td>Hours (if starting from scratch)</td>
+            <td>Seconds (just clone)</td>
+        </tr>
+        <tr>
+            <td><strong>Customization</strong></td>
+            <td>Limited</td>
+            <td>Highly customizable</td>
+            <td>Customizable (but started with defaults)</td>
+        </tr>
+    </table>
+
+    <!-- ── NVCHAD STRUCTURE ── -->
+    <h2>NvChad Directory Structure</h2>
+
+    <div class="plugin-list">
+        <strong>After installing NvChad:</strong><br>
+        <code>~/.config/nvim/</code><br>
+        ├── <code>init.lua</code> — Main entry point (don't edit)<br>
+        ├── <code>lua/</code> — Lua configuration<br>
+        │ ├── <code>core/</code> — NvChad core (don't edit)<br>
+        │ ├── <code>plugins/</code> — Pre-installed plugins<br>
+        │ └── <code>custom/</code> — Your customizations<br>
+        │     ├── <code>chadrc.lua</code> — Customize UI, theme, disabled features<br>
+        │     ├── <code>init.lua</code> — Add your settings here<br>
+        │     └── <code>plugins.lua</code> — Add your plugins here<br>
+    </div>
+
+    <!-- ── CUSTOMIZATION EXAMPLES ── -->
+    <h2>Customization Examples</h2>
+
+    <div class="command">
+        <div class="title">Change theme</div>
+        <div class="example">
+-- In ~/.config/nvim/lua/custom/chadrc.lua
+local M = {}
+M.ui = {
+  theme = "onedark",  -- other options: gruvbox, monokai, nord, etc.
+}
+return M
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Disable features</div>
+        <div class="example">
+-- In ~/.config/nvim/lua/custom/chadrc.lua
+M.ui = {
+  tabufline = { enabled = false },  -- Hide tab bar
+  nvdash = { enabled = false },     -- Hide dashboard
+}
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Add custom plugins</div>
+        <div class="example">
+-- In ~/.config/nvim/lua/custom/plugins.lua
+return {
+  {
+    "numToStr/Comment.nvim",  -- Comment plugin
+    config = function()
+      require("Comment").setup()
+    end
+  },
+  {
+    "folke/todo-comments.nvim",  -- Highlight TODO/FIXME
+  }
+}
+        </div>
+    </div>
+
+    <!-- ── COMMON WORKFLOWS ── -->
+    <h2>Common Workflows &amp; Use-Cases</h2>
+
+    <div class="command">
+        <div class="title">Quick project setup</div>
+        <div class="example">
+cd ~/my-project
+nvim  # Opens NvChad dashboard
+&lt;space&gt;ff  # Find files, start coding
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Refactor code with LSP</div>
+        <div class="example">
+1. Position cursor on function/variable name
+2. &lt;space&gt;rn (rename symbol)
+3. Type new name
+4. All references updated automatically
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">View function signature while coding</div>
+        <div class="example">
+K  # Shows type, params, docstring for symbol under cursor
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Run code in terminal split</div>
+        <div class="example">
+:split | terminal
+i (enter terminal mode)
+python app.py
+&lt;C-\&gt;&lt;C-n&gt; (exit terminal mode)
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Format entire file on save</div>
+        <div class="example">
+-- In ~/.config/nvim/lua/custom/init.lua
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    vim.cmd("silent! lua vim.lsp.buf.format()")
+  end
+})
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Search and replace across project</div>
+        <div class="example">
+&lt;space&gt;fw  # Find word
+Select results with &lt;C-q&gt;
+&lt;space&gt;ra  # Code action (if available)
+        </div>
+    </div>
+
+    <!-- ── TIPS & TRICKS ── -->
+    <h2>Tips &amp; Tricks</h2>
+
+    <div class="command">
+        <div class="title">Speed up cursor movement with Leap</div>
+        <div class="example">
+s + 2 chars = jump to that location (NvChad has Leap pre-installed)
+Much faster than f/F or /search
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Browse file tree efficiently</div>
+        <div class="example">
+&lt;C-n&gt;  # Toggle NvimTree
+a      # Create new file
+d      # Delete
+r      # Rename
+c      # Copy
+x      # Cut
+p      # Paste
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">View Neovim/NvChad shortcuts</div>
+        <div class="example">:help nvim</example>
+        <div class="or">:help NvChad (if help is available)</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Check which plugins are installed</div>
+        <div class="example">:Lazy</example>
+        <div class="description">Description: Opens lazy.nvim plugin manager. Press 'x' to delete, 'u' to update plugins.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Profile startup performance</div>
+        <div class="example">nvim --startuptime startup.log</example>
+        <div class="description">Description: Useful for diagnosing slow startup. Check startup.log for slow plugins.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Disable NvChad dashboard on startup</div>
+        <div class="example">
+-- In ~/.config/nvim/lua/custom/chadrc.lua
+M.ui.nvdash = { enabled = false }
+        </div>
+    </div>
+
+    <!-- ── DEBUGGING ── -->
+    <h2>Debugging &amp; Troubleshooting</h2>
+
+    <div class="command">
+        <div class="title">LSP not working?</div>
+        <div class="example">
+1. &lt;space&gt;ma — Open Mason, install language server for your language
+2. :LspInfo — Check if LSP is attached to current buffer
+3. :Mason — Manage installed servers
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Formatter not working?</div>
+        <div class="example">
+1. &lt;space&gt;ma — Install formatter (e.g., Prettier, Black)
+2. Check null-ls config: ~/.config/nvim/lua/custom/configs/null-ls.lua
+3. :NullLsInfo — Debug null-ls status
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Check configuration errors</div>
+        <div class="example">:checkhealth</example>
+        <div class="description">Description: Comprehensive health check. Shows missing dependencies, plugin issues, etc.</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Reload configuration without restarting</div>
+        <div class="example">:luafile %</example>
+        <div class="or">:source ~/.config/nvim/init.lua</div>
+    </div>
+
+    <!-- ── RESOURCES ── -->
+    <h2>Resources &amp; Learning</h2>
+
+    <div class="command">
+        <div class="title">Official Documentation</div>
+        <div class="example">
+Neovim: https://neovim.io/
+NvChad: https://nvchad.com/
+        </div>
+    </div>
+
+    <div class="command">
+        <div class="title">Keybinding reference in Neovim</div>
+        <div class="example">:help index</example>
+        <div class="or">:help NvChad.mappings (for NvChad)</div>
+    </div>
+
+    <div class="command">
+        <div class="title">Watch tutorials</div>
+        <div class="example">
+https://www.youtube.com/results?search_query=nvchad+tutorial
+Search "NvChad" or "Neovim setup" on YouTube
+        </div>
+    </div>
+
+    <div class="tip">
+        <strong>Pro Tip:</strong> Start with NvChad if you're new to Neovim. It has sensible defaults and beautiful UI. As you get comfortable, customize ~/.config/nvim/lua/custom/ for your workflow.
+    </div>
+
+</div>
+
+</body>
+</html>

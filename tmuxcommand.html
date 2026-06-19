@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Section 1: Basic Commands</title>
+    <title>Section 3: Tmux Commands Guide</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
             background: #f0f0f0;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
             background: white;
             padding: 20px;
@@ -22,19 +22,69 @@
         h1 {
             color: #333;
         }
+        h2 {
+            color: #444;
+            border-left: 4px solid #007BFF;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
         .command {
             border-bottom: 1px solid #eee;
-            padding: 10px 0;
+            padding: 15px 0;
         }
         .command:last-child {
             border-bottom: none;
         }
         .title {
-            font-size: 20px;
+            font-size: 18px;
             color: #007BFF;
+            font-family: monospace;
+            word-break: break-all;
         }
         .description, .usage, .other-ways {
-            margin: 5px 0;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .example {
+            background: #f8f8f8;
+            padding: 10px;
+            border-left: 3px solid #007BFF;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
         }
         .section-image {
             width: 100%;
@@ -43,45 +93,235 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        .key-badge {
+            display: inline-block;
+            background: #007BFF;
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 5px;
+            vertical-align: middle;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
     <h1>Section 3: Tmux Commands Guide</h1>
-    <p>tmux is a terminal multiplexer that allows you to manage multiple terminal sessions within a single window. Here are some key tmux commands:</p>
+    <p><strong>Tmux</strong> (Terminal Multiplexer) is a powerful tool for managing multiple terminal sessions and panes within a single window. Perfect for remote servers, long-running processes, and complex workflows.</p>
+
+    <div class="note">
+        <strong>What is Tmux?</strong><br>
+        Tmux lets you:<br>
+        • Create multiple sessions and switch between them<br>
+        • Split windows into panes<br>
+        • Detach and reattach sessions<br>
+        • Keep sessions running even if disconnected (SSH)<br>
+        • Default prefix key: <code>Ctrl+B</code> (press once, then press command key)
+    </div>
+
+    <h2>Session Management</h2>
+
     <div class="command">
         <div class="title">tmux new -s session_name</div>
-        <div class="usage">Usage: Start a new session</div>
-        <div class="description">Description: Replace session_name with your desired session name.</div>
+        <div class="usage">Usage: Create a new session</div>
+        <div class="example">tmux new -s development</example>
+        <div class="description">Description: Creates a new named session. You're automatically attached to it.</div>
     </div>
     <div class="command">
-        <div class="title">Press Ctrl + b, then press d</div>
-        <div class="usage">Usage: Detach from the current session</div>
+        <div class="title">tmux new -s session_name -d</div>
+        <div class="usage">Usage: Create a new session in the background (detached)</div>
+        <div class="example">tmux new -s server -d "python app.py"</example>
+        <div class="description">Description: <code>-d</code> flag creates session without attaching. Useful for starting processes.</div>
     </div>
     <div class="command">
         <div class="title">tmux ls</div>
-        <div class="usage">Usage: List all sessions</div>
+        <div class="usage">Usage: List all active sessions</div>
+        <div class="example">tmux ls</example>
     </div>
     <div class="command">
         <div class="title">tmux attach -t session_name</div>
-        <div class="usage">Usage: Reattach to a session</div>
-        <div class="description">Description: Replace session_name with the name of the session you want to attach to.</div>
+        <div class="usage">Usage: Attach to an existing session</div>
+        <div class="example">tmux attach -t development</example>
+        <div class="other-ways">Other Ways: <code>tmux a -t session_name</code> (shorthand)</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then D</div>
+        <div class="usage">Usage: Detach from current session (keep it running)</div>
+        <div class="description">Description: Session continues running in background. Reconnect anytime with <code>tmux attach -t session_name</code></div>
     </div>
     <div class="command">
         <div class="title">tmux kill-session -t session_name</div>
         <div class="usage">Usage: Kill a session</div>
+        <div class="example">tmux kill-session -t old-session</example>
     </div>
     <div class="command">
         <div class="title">tmux kill-server</div>
-        <div class="usage">Usage: Kill all sessions</div>
+        <div class="usage">Usage: Kill all sessions and tmux server</div>
+        <div class="description">Description: Use with caution! Terminates everything.</div>
     </div>
-    <img src="Tmux image-1.png" alt="Tmux image refer the code file or in github repo" class="section-image">
-    <img src="Tmux image-2.png" alt="Tmux image refer the code file or in github repo" class="section-image">
-    <img src="Tmux image-3.png" alt="Tmux image refer the code file or in github repo" class="section-image">
-    <img src="Tmux image-4.jpg" alt="Tmux image refer the code file or in github repo" class="section-image">
-    <img src="Tmux image-5.png" alt="Tmux image refer the code file or in github repo" class="section-image">
-    <!-- Add more commands relevant to this section -->
+    <div class="command">
+        <div class="title">tmux rename-session -t old_name new_name</div>
+        <div class="usage">Usage: Rename a session</div>
+        <div class="example">tmux rename-session -t dev development</example>
+    </div>
+
+    <h2>Window Management</h2>
+
+    <div class="command">
+        <div class="title">Ctrl+B then C</div>
+        <div class="usage">Usage: Create a new window in the current session</div>
+        <div class="description">Description: Each window is like a separate terminal tab.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then N</div>
+        <div class="usage">Usage: Go to next window</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then P</div>
+        <div class="usage">Usage: Go to previous window</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then # (0-9)</div>
+        <div class="usage">Usage: Jump to a specific window by number</div>
+        <div class="example">Ctrl+B then 0 (go to window 0)</example>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then W</div>
+        <div class="usage">Usage: List and choose windows</div>
+        <div class="description">Description: Shows interactive window selector.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then X</div>
+        <div class="usage">Usage: Close/kill current window</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then ,</div>
+        <div class="usage">Usage: Rename current window</div>
+    </div>
+
+    <h2>Pane Management (Splits)</h2>
+
+    <div class="command">
+        <div class="title">Ctrl+B then %</div>
+        <div class="usage">Usage: Split window vertically (left/right)</div>
+        <div class="description">Description: Creates two side-by-side panes.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then " (double quote)</div>
+        <div class="usage">Usage: Split window horizontally (top/bottom)</div>
+        <div class="description">Description: Creates two stacked panes.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then Arrow Keys</div>
+        <div class="usage">Usage: Move focus between panes</div>
+        <div class="example">Ctrl+B then ← (move to left pane)</example>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then O</div>
+        <div class="usage">Usage: Move to next pane (cycle through)</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then Z</div>
+        <div class="usage">Usage: Zoom/maximize current pane (toggle)</div>
+        <div class="description">Description: Toggle pane to full size and back.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then X</div>
+        <div class="usage">Usage: Kill current pane</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then Space</div>
+        <div class="usage">Usage: Cycle through pane layouts</div>
+        <div class="description">Description: Automatically arranges panes in different layouts.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then Ctrl+Arrow</div>
+        <div class="usage">Usage: Resize pane</div>
+        <div class="example">Ctrl+B then Ctrl+← (make left pane narrower)</example>
+    </div>
+
+    <h2>Copy &amp; Paste</h2>
+
+    <div class="command">
+        <div class="title">Ctrl+B then [</div>
+        <div class="usage">Usage: Enter copy mode</div>
+        <div class="description">Description: Allows scrolling and selecting text. Use arrow keys or vim keys to navigate.</div>
+    </div>
+    <div class="command">
+        <div class="title">Space (in copy mode)</div>
+        <div class="usage">Usage: Start selecting text</div>
+    </div>
+    <div class="command">
+        <div class="title">Enter (in copy mode)</div>
+        <div class="usage">Usage: Copy selected text</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then ]</div>
+        <div class="usage">Usage: Paste copied text</div>
+    </div>
+
+    <h2>Useful Settings &amp; Configuration</h2>
+
+    <div class="command">
+        <div class="title">tmux show-options -g</div>
+        <div class="usage">Usage: Show global configuration options</div>
+    </div>
+    <div class="command">
+        <div class="title">~/.tmux.conf</div>
+        <div class="usage">Usage: Tmux configuration file</div>
+        <div class="description">Description: Create this file to customize tmux. Example settings:<br>
+        <code>set -g mouse on</code> (enable mouse)<br>
+        <code>set -g base-index 1</code> (start window numbering at 1)<br>
+        <code>bind r source-file ~/.tmux.conf</code> (reload config)</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+B then :</div>
+        <div class="usage">Usage: Enter tmux command prompt</div>
+        <div class="description">Description: Type commands like <code>send-keys -t session "command"</code></div>
+    </div>
+
+    <h2>Common Workflows &amp; Use-Cases</h2>
+
+    <div class="command">
+        <div class="title">Remote development with persistent session</div>
+        <div class="example">
+# On remote server:
+tmux new -s dev
+# Do work, detach with Ctrl+B then D
+# Later, reconnect:
+tmux attach -t dev
+        </div>
+        <div class="description">Description: Session survives SSH disconnects. Perfect for remote development!</div>
+    </div>
+    <div class="command">
+        <div class="title">Run multiple services in one tmux session</div>
+        <div class="example">
+tmux new -s services
+tmux send-keys -t services "python backend.py" Enter
+tmux new-window -t services
+tmux send-keys -t services "npm start" Enter
+        </div>
+    </div>
+    <div class="command">
+        <div class="title">Quick pair programming setup</div>
+        <div class="example">
+tmux new -s pair -d  # Create session
+tmux send-keys -t pair "code ." Enter  # Start editor
+        </div>
+    </div>
+
+    <div class="tip">
+        <strong>Pro Tips:</strong><br>
+        • Use <code>Ctrl+B ?</code> to list all keybindings<br>
+        • Enable mouse support in <code>~/.tmux.conf</code>: <code>set -g mouse on</code><br>
+        • Use plugins like Tmux Plugin Manager (tpm) for extended functionality<br>
+        • Combine tmux with <code>screen</code> or detach functionality for robust workflows
+    </div>
+
 </div>
 
 </body>

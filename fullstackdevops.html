@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack Developer & Cloud Engineer Commands</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            border-left: 4px solid #ff6b6b;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .command {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        .command:last-child {
+            border-bottom: none;
+        }
+        .title {
+            font-size: 18px;
+            color: #ff6b6b;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .description, .usage, .example {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .example {
+            background: #f8f8f8;
+            padding: 10px;
+            border-left: 3px solid #ff6b6b;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #ff6b6b;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+    <h1>Full Stack Developer &amp; Cloud Engineer Commands</h1>
+    <p>Essential commands for Node.js, Python, Go, Docker, AWS, Terraform, PostgreSQL, MongoDB, Git, and Nginx. Covers your entire full-stack development and cloud engineering workflow.</p>
+
+    <div class="note">
+        <strong>Your Tech Stack Covered:</strong><br>
+        ✓ Node.js / npm / yarn / bun  ✓ Python / pip / venv  ✓ Go<br>
+        ✓ Docker & Docker Compose  ✓ AWS CLI  ✓ Terraform<br>
+        ✓ PostgreSQL / MongoDB  ✓ Git  ✓ Nginx
+    </div>
+
+    <!-- ── NODE.JS & NPM ── -->
+    <h2>Node.js &amp; npm Commands</h2>
+
+    <h3>Node Version Management (NVM)</h3>
+    <div class="command">
+        <div class="title">nvm list</div>
+        <div class="usage">Usage: List installed Node versions</div>
+        <div class="example">nvm list</example>
+    </div>
+    <div class="command">
+        <div class="title">nvm install 18.17.0</div>
+        <div class="usage">Usage: Install specific Node version</div>
+        <div class="example">nvm install 18.17.0</example>
+    </div>
+    <div class="command">
+        <div class="title">nvm use 18.17.0</div>
+        <div class="usage">Usage: Switch to Node version</div>
+        <div class="example">nvm use 18.17.0</example>
+    </div>
+    <div class="command">
+        <div class="title">nvm alias default 18.17.0</div>
+        <div class="usage">Usage: Set default Node version</div>
+        <div class="example">nvm alias default 18.17.0</example>
+    </div>
+    <div class="command">
+        <div class="title">Create .nvmrc</div>
+        <div class="usage">Usage: Auto-load Node version per project</div>
+        <div class="example">
+# In project root
+node --version > .nvmrc
+
+# Zsh auto-loads correct version on cd!
+        </div>
+    </div>
+
+    <h3>npm Package Management</h3>
+    <div class="command">
+        <div class="title">npm init</div>
+        <div class="usage">Usage: Create new Node project</div>
+        <div class="example">npm init -y  # Skip prompts</example>
+    </div>
+    <div class="command">
+        <div class="title">npm install</div>
+        <div class="usage">Usage: Install dependencies from package.json</div>
+        <div class="example">npm install</example>
+    </div>
+    <div class="command">
+        <div class="title">npm install package --save</div>
+        <div class="usage">Usage: Install and save to dependencies</div>
+        <div class="example">npm install express</example>
+    </div>
+    <div class="command">
+        <div class="title">npm install package --save-dev</div>
+        <div class="usage">Usage: Install as dev dependency</div>
+        <div class="example">npm install --save-dev jest @types/node</example>
+    </div>
+    <div class="command">
+        <div class="title">npm list</div>
+        <div class="usage">Usage: List installed packages</div>
+        <div class="example">npm list</example>
+    </div>
+    <div class="command">
+        <div class="title">npm outdated</div>
+        <div class="usage">Usage: Show packages with newer versions</div>
+        <div class="example">npm outdated</example>
+    </div>
+    <div class="command">
+        <div class="title">npm update</div>
+        <div class="usage">Usage: Update packages to latest versions</div>
+        <div class="example">npm update</example>
+    </div>
+    <div class="command">
+        <div class="title">npm audit</div>
+        <div class="usage">Usage: Check for security vulnerabilities</div>
+        <div class="example">npm audit</example>
+    </div>
+    <div class="command">
+        <div class="title">npm audit fix</div>
+        <div class="usage">Usage: Auto-fix security vulnerabilities</div>
+        <div class="example">npm audit fix</example>
+    </div>
+    <div class="command">
+        <div class="title">npm run</div>
+        <div class="usage">Usage: Execute scripts defined in package.json</div>
+        <div class="example">npm run build</div>
+    </div>
+    <div class="command">
+        <div class="title">npm run dev</div>
+        <div class="usage">Usage: Run development server</div>
+        <div class="example">npm run dev</example>
+    </div>
+
+    <h3>Yarn & Bun</h3>
+    <div class="command">
+        <div class="title">yarn add package</div>
+        <div class="usage">Usage: Yarn equivalent of npm install</div>
+        <div class="example">yarn add express</example>
+    </div>
+    <div class="command">
+        <div class="title">bun install</div>
+        <div class="usage">Usage: Bun package manager (faster npm alternative)</div>
+        <div class="example">bun install</example>
+        <div class="description">Description: Bun is extremely fast. You have it in your .zshrc!</div>
+    </div>
+
+    <!-- ── PYTHON ── -->
+    <h2>Python &amp; Package Management</h2>
+
+    <div class="command">
+        <div class="title">python --version</div>
+        <div class="usage">Usage: Check Python version</div>
+        <div class="example">python --version</example>
+    </div>
+    <div class="command">
+        <div class="title">python3 -m venv venv</div>
+        <div class="usage">Usage: Create virtual environment</div>
+        <div class="example">python3 -m venv venv</example>
+    </div>
+    <div class="command">
+        <div class="title">source venv/bin/activate</div>
+        <div class="usage">Usage: Activate virtual environment</div>
+        <div class="example">source venv/bin/activate</div>
+        <div class="description">Description: On Windows: <code>venv\Scripts\activate</code></div>
+    </div>
+    <div class="command">
+        <div class="title">deactivate</div>
+        <div class="usage">Usage: Deactivate virtual environment</div>
+        <div class="example">deactivate</example>
+    </div>
+    <div class="command">
+        <div class="title">pip install package</div>
+        <div class="usage">Usage: Install Python package</div>
+        <div class="example">pip install flask</example>
+    </div>
+    <div class="command">
+        <div class="title">pip list</div>
+        <div class="usage">Usage: List installed packages</div>
+        <div class="example">pip list</example>
+    </div>
+    <div class="command">
+        <div class="title">pip freeze > requirements.txt</div>
+        <div class="usage">Usage: Export dependencies</div>
+        <div class="example">pip freeze > requirements.txt</example>
+    </div>
+    <div class="command">
+        <div class="title">pip install -r requirements.txt</div>
+        <div class="usage">Usage: Install from requirements file</div>
+        <div class="example">pip install -r requirements.txt</example>
+    </div>
+
+    <!-- ── GO ── -->
+    <h2>Go Development</h2>
+
+    <div class="command">
+        <div class="title">go version</div>
+        <div class="usage">Usage: Check Go version</div>
+        <div class="example">go version</example>
+    </div>
+    <div class="command">
+        <div class="title">go mod init module-name</div>
+        <div class="usage">Usage: Initialize Go module</div>
+        <div class="example">go mod init github.com/user/project</example>
+    </div>
+    <div class="command">
+        <div class="title">go get package</div>
+        <div class="usage">Usage: Download and install Go package</div>
+        <div class="example">go get github.com/sirupsen/logrus</example>
+    </div>
+    <div class="command">
+        <div class="title">go run main.go</div>
+        <div class="usage">Usage: Run Go program directly</div>
+        <div class="example">go run main.go</example>
+    </div>
+    <div class="command">
+        <div class="title">go build</div>
+        <div class="usage">Usage: Compile Go binary</div>
+        <div class="example">go build -o myapp</example>
+    </div>
+    <div class="command">
+        <div class="title">go test ./...</div>
+        <div class="usage">Usage: Run all Go tests</div>
+        <div class="example">go test ./...</example>
+    </div>
+
+    <!-- ── DOCKER ── -->
+    <h2>Docker &amp; Containerization</h2>
+
+    <h3>Docker Images</h3>
+    <div class="command">
+        <div class="title">docker images</div>
+        <div class="usage">Usage: List local Docker images</div>
+        <div class="example">docker images</example>
+    </div>
+    <div class="command">
+        <div class="title">docker pull image:tag</div>
+        <div class="usage">Usage: Download image from registry</div>
+        <div class="example">docker pull node:18-alpine</example>
+    </div>
+    <div class="command">
+        <div class="title">docker build -t name:tag .</div>
+        <div class="usage">Usage: Build Docker image from Dockerfile</div>
+        <div class="example">docker build -t myapp:1.0 .</div>
+    </div>
+    <div class="command">
+        <div class="title">docker build --no-cache .</div>
+        <div class="usage">Usage: Build without using cache</div>
+        <div class="example">docker build --no-cache -t myapp:latest .</example>
+    </div>
+    <div class="command">
+        <div class="title">docker tag image:old image:new</div>
+        <div class="usage">Usage: Tag/rename Docker image</div>
+        <div class="example">docker tag myapp:1.0 myapp:latest</example>
+    </div>
+    <div class="command">
+        <div class="title">docker rmi image:tag</div>
+        <div class="usage">Usage: Delete Docker image</div>
+        <div class="example">docker rmi myapp:old</example>
+    </div>
+
+    <h3>Docker Containers</h3>
+    <div class="command">
+        <div class="title">docker ps</div>
+        <div class="usage">Usage: List running containers</div>
+        <div class="example">docker ps</example>
+    </div>
+    <div class="command">
+        <div class="title">docker ps -a</div>
+        <div class="usage">Usage: List all containers (running &amp; stopped)</div>
+        <div class="example">docker ps -a</example>
+    </div>
+    <div class="command">
+        <div class="title">docker run -d --name container image:tag</div>
+        <div class="usage">Usage: Start new container in background</div>
+        <div class="example">docker run -d --name app node:18 npm start</example>
+    </div>
+    <div class="command">
+        <div class="title">docker run -it image:tag /bin/sh</div>
+        <div class="usage">Usage: Run container interactively</div>
+        <div class="example">docker run -it ubuntu:22.04 /bin/bash</example>
+    </div>
+    <div class="command">
+        <div class="title">docker run -p 8080:3000 image:tag</div>
+        <div class="usage">Usage: Port mapping (host:container)</div>
+        <div class="example">docker run -p 8080:3000 myapp:latest</example>
+    </div>
+    <div class="command">
+        <div class="title">docker run -e VAR=value image:tag</div>
+        <div class="usage">Usage: Set environment variables</div>
+        <div class="example">docker run -e NODE_ENV=production myapp:latest</example>
+    </div>
+    <div class="command">
+        <div class="title">docker run -v /host/path:/container/path image</div>
+        <div class="usage">Usage: Mount volume (persist data)</div>
+        <div class="example">docker run -v /home/user/data:/data postgres:14</example>
+    </div>
+    <div class="command">
+        <div class="title">docker stop container</div>
+        <div class="usage">Usage: Stop running container</div>
+        <div class="example">docker stop app</example>
+    </div>
+    <div class="command">
+        <div class="title">docker start container</div>
+        <div class="usage">Usage: Start stopped container</div>
+        <div class="example">docker start app</example>
+    </div>
+    <div class="command">
+        <div class="title">docker restart container</div>
+        <div class="usage">Usage: Restart container</div>
+        <div class="example">docker restart app</example>
+    </div>
+    <div class="command">
+        <div class="title">docker logs container</div>
+        <div class="usage">Usage: View container logs</div>
+        <div class="example">docker logs app</example>
+    </div>
+    <div class="command">
+        <div class="title">docker logs -f container</div>
+        <div class="usage">Usage: Follow container logs (real-time)</div>
+        <div class="example">docker logs -f app</example>
+    </div>
+    <div class="command">
+        <div class="title">docker exec -it container /bin/bash</div>
+        <div class="usage">Usage: Execute command inside running container</div>
+        <div class="example">docker exec -it app /bin/bash</example>
+    </div>
+    <div class="command">
+        <div class="title">docker rm container</div>
+        <div class="usage">Usage: Delete container</div>
+        <div class="example">docker rm app</example>
+    </div>
+    <div class="command">
+        <div class="title">docker inspect container</div>
+        <div class="usage">Usage: View container details (JSON)</div>
+        <div class="example">docker inspect app</example>
+    </div>
+
+    <h3>Docker Compose</h3>
+    <div class="command">
+        <div class="title">docker-compose up</div>
+        <div class="usage">Usage: Start services defined in docker-compose.yml</div>
+        <div class="example">docker-compose up</example>
+    </div>
+    <div class="command">
+        <div class="title">docker-compose up -d</div>
+        <div class="usage">Usage: Start in background (detached)</div>
+        <div class="example">docker-compose up -d</example>
+    </div>
+    <div class="command">
+        <div class="title">docker-compose down</div>
+        <div class="usage">Usage: Stop and remove containers</div>
+        <div class="example">docker-compose down</div>
+    </div>
+    <div class="command">
+        <div class="title">docker-compose ps</div>
+        <div class="usage">Usage: List Compose services status</div>
+        <div class="example">docker-compose ps</example>
+    </div>
+    <div class="command">
+        <div class="title">docker-compose logs -f</div>
+        <div class="usage">Usage: Follow all Compose logs</div>
+        <div class="example">docker-compose logs -f</example>
+    </div>
+    <div class="command">
+        <div class="title">docker-compose exec service command</div>
+        <div class="usage">Usage: Execute command in Compose service</div>
+        <div class="example">docker-compose exec db psql -U user</example>
+    </div>
+    <div class="command">
+        <div class="title">docker-compose build</div>
+        <div class="usage">Usage: Build Docker images for Compose services</div>
+        <div class="example">docker-compose build</example>
+    </div>
+
+    <!-- ── AWS CLI ── -->
+    <h2>AWS CLI Commands</h2>
+
+    <h3>Configure & Credentials</h3>
+    <div class="command">
+        <div class="title">aws configure</div>
+        <div class="usage">Usage: Configure AWS credentials</div>
+        <div class="example">aws configure</example>
+        <div class="description">Description: Prompts for Access Key, Secret Key, Region, Output format.</div>
+    </div>
+    <div class="command">
+        <div class="title">aws sts get-caller-identity</div>
+        <div class="usage">Usage: Verify AWS credentials are working</div>
+        <div class="example">aws sts get-caller-identity</example>
+    </div>
+
+    <h3>EC2 Instances</h3>
+    <div class="command">
+        <div class="title">aws ec2 describe-instances</div>
+        <div class="usage">Usage: List all EC2 instances</div>
+        <div class="example">aws ec2 describe-instances</example>
+    </div>
+    <div class="command">
+        <div class="title">aws ec2 run-instances --image-id ami-xxx</div>
+        <div class="usage">Usage: Launch new EC2 instance</div>
+        <div class="example">aws ec2 run-instances --image-id ami-0c55b159cbfafe1f0 --instance-type t2.micro</example>
+    </div>
+    <div class="command">
+        <div class="title">aws ec2 stop-instances --instance-ids i-xxx</div>
+        <div class="usage">Usage: Stop EC2 instance</div>
+        <div class="example">aws ec2 stop-instances --instance-ids i-1234567890abcdef0</example>
+    </div>
+
+    <h3>S3 Buckets</h3>
+    <div class="command">
+        <div class="title">aws s3 ls</div>
+        <div class="usage">Usage: List S3 buckets</div>
+        <div class="example">aws s3 ls</example>
+    </div>
+    <div class="command">
+        <div class="title">aws s3 ls s3://bucket-name/</div>
+        <div class="usage">Usage: List objects in bucket</div>
+        <div class="example">aws s3 ls s3://my-bucket/</example>
+    </div>
+    <div class="command">
+        <div class="title">aws s3 cp file s3://bucket/path</div>
+        <div class="usage">Usage: Upload file to S3</div>
+        <div class="example">aws s3 cp app.zip s3://my-bucket/deploys/</example>
+    </div>
+    <div class="command">
+        <div class="title">aws s3 cp s3://bucket/file .</div>
+        <div class="usage">Usage: Download file from S3</div>
+        <div class="example">aws s3 cp s3://my-bucket/backup.zip .</example>
+    </div>
+    <div class="command">
+        <div class="title">aws s3 sync local/ s3://bucket/</div>
+        <div class="usage">Usage: Sync directory to S3</div>
+        <div class="example">aws s3 sync dist/ s3://my-bucket/</example>
+    </div>
+
+    <h3>RDS Databases</h3>
+    <div class="command">
+        <div class="title">aws rds describe-db-instances</div>
+        <div class="usage">Usage: List RDS databases</div>
+        <div class="example">aws rds describe-db-instances</example>
+    </div>
+    <div class="command">
+        <div class="title">aws rds create-db-instance</div>
+        <div class="usage">Usage: Create new RDS database</div>
+        <div class="example">aws rds create-db-instance --db-instance-identifier mydb --engine postgres --allocated-storage 20</example>
+    </div>
+
+    <!-- ── TERRAFORM ── -->
+    <h2>Terraform Infrastructure as Code</h2>
+
+    <div class="command">
+        <div class="title">terraform init</div>
+        <div class="usage">Usage: Initialize Terraform working directory</div>
+        <div class="example">terraform init</example>
+    </div>
+    <div class="command">
+        <div class="title">terraform plan</div>
+        <div class="usage">Usage: Preview infrastructure changes</div>
+        <div class="example">terraform plan</example>
+    </div>
+    <div class="command">
+        <div class="title">terraform apply</div>
+        <div class="usage">Usage: Apply infrastructure changes</div>
+        <div class="example">terraform apply</example>
+    </div>
+    <div class="command">
+        <div class="title">terraform destroy</div>
+        <div class="usage">Usage: Destroy infrastructure</div>
+        <div class="example">terraform destroy</example>
+        <div class="warning"><strong>⚠️ Dangerous!</strong> Confirms before deletion, but destroys everything.</div>
+    </div>
+    <div class="command">
+        <div class="title">terraform state list</div>
+        <div class="usage">Usage: List resources in state file</div>
+        <div class="example">terraform state list</example>
+    </div>
+    <div class="command">
+        <div class="title">terraform validate</div>
+        <div class="usage">Usage: Check syntax of Terraform files</div>
+        <div class="example">terraform validate</example>
+    </div>
+    <div class="command">
+        <div class="title">terraform fmt</div>
+        <div class="usage">Usage: Format Terraform code</div>
+        <div class="example">terraform fmt</example>
+    </div>
+
+    <!-- ── DATABASES ── -->
+    <h2>Database Commands</h2>
+
+    <h3>PostgreSQL</h3>
+    <div class="command">
+        <div class="title">psql -U user -d database</div>
+        <div class="usage">Usage: Connect to PostgreSQL database</div>
+        <div class="example">psql -U postgres -d myapp</example>
+    </div>
+    <div class="command">
+        <div class="title">\dt (in psql)</div>
+        <div class="usage">Usage: List all tables</div>
+    </div>
+    <div class="command">
+        <div class="title">\du (in psql)</div>
+        <div class="usage">Usage: List all roles/users</div>
+    </div>
+    <div class="command">
+        <div class="title">pg_dump -U user database > backup.sql</div>
+        <div class="usage">Usage: Backup PostgreSQL database</div>
+        <div class="example">pg_dump -U postgres myapp > backup.sql</example>
+    </div>
+    <div class="command">
+        <div class="title">psql -U user database < backup.sql</div>
+        <div class="usage">Usage: Restore PostgreSQL database</div>
+        <div class="example">psql -U postgres myapp < backup.sql</example>
+    </div>
+
+    <h3>MongoDB</h3>
+    <div class="command">
+        <div class="title">mongosh</div>
+        <div class="usage">Usage: Connect to MongoDB</div>
+        <div class="example">mongosh</example>
+    </div>
+    <div class="command">
+        <div class="title">show dbs</div>
+        <div class="usage">Usage: List all MongoDB databases</div>
+    </div>
+    <div class="command">
+        <div class="title">use database_name</div>
+        <div class="usage">Usage: Switch to database</div>
+    </div>
+    <div class="command">
+        <div class="title">db.collection.find()</div>
+        <div class="usage">Usage: Query documents from collection</div>
+    </div>
+    <div class="command">
+        <div class="title">mongodump --db database --out backup/</div>
+        <div class="usage">Usage: Backup MongoDB database</div>
+        <div class="example">mongodump --db myapp --out backup/</example>
+    </div>
+    <div class="command">
+        <div class="title">mongorestore backup/</div>
+        <div class="usage">Usage: Restore MongoDB backup</div>
+        <div class="example">mongorestore backup/</example>
+    </div>
+
+    <!-- ── NGINX ── -->
+    <h2>Nginx Web Server</h2>
+
+    <div class="command">
+        <div class="title">nginx</div>
+        <div class="usage">Usage: Start Nginx</div>
+        <div class="example">sudo systemctl start nginx</example>
+    </div>
+    <div class="command">
+        <div class="title">sudo systemctl stop nginx</div>
+        <div class="usage">Usage: Stop Nginx</div>
+        <div class="example">sudo systemctl stop nginx</example>
+    </div>
+    <div class="command">
+        <div class="title">sudo systemctl restart nginx</div>
+        <div class="usage">Usage: Restart Nginx (reload config)</div>
+        <div class="example">sudo systemctl restart nginx</example>
+    </div>
+    <div class="command">
+        <div class="title">sudo nginx -t</div>
+        <div class="usage">Usage: Test Nginx config for syntax errors</div>
+        <div class="example">sudo nginx -t</example>
+    </div>
+    <div class="command">
+        <div class="title">sudo systemctl status nginx</div>
+        <div class="usage">Usage: Check Nginx status</div>
+        <div class="example">sudo systemctl status nginx</example>
+    </div>
+    <div class="command">
+        <div class="title">cat /etc/nginx/sites-enabled/default</div>
+        <div class="usage">Usage: View Nginx configuration</div>
+        <div class="example">sudo cat /etc/nginx/nginx.conf</example>
+    </div>
+    <div class="command">
+        <div class="title">sudo tail -f /var/log/nginx/access.log</div>
+        <div class="usage">Usage: Monitor Nginx access logs</div>
+        <div class="example">sudo tail -f /var/log/nginx/access.log</example>
+    </div>
+    <div class="command">
+        <div class="title">sudo tail -f /var/log/nginx/error.log</div>
+        <div class="usage">Usage: Monitor Nginx error logs</div>
+        <div class="example">sudo tail -f /var/log/nginx/error.log</example>
+    </div>
+
+    <!-- ── DEPLOYMENT WORKFLOWS ── -->
+    <h2>Common Deployment Workflows</h2>
+
+    <h3>Full Stack App Deployment</h3>
+    <div class="command">
+        <div class="title">Complete Node.js deployment</div>
+        <div class="example">
+# 1. Clone repo
+git clone https://github.com/user/project.git
+cd project
+
+# 2. Install dependencies
+npm install
+
+# 3. Build (if needed)
+npm run build
+
+# 4. Start with PM2 (process manager)
+npm install -g pm2
+pm2 start npm --name "app" -- start
+pm2 save
+pm2 startup
+
+# 5. Setup Nginx reverse proxy
+sudo systemctl restart nginx    
+        </div>
+    </div>
+
+    <h3>Docker Deployment</h3>
+    <div class="command">
+        <div class="title">Docker app deployment</div>
+        <div class="example">
+# 1. Build image
+docker build -t myapp:latest .
+
+# 2. Run container with volume mount
+docker run -d \
+  --name app \
+  -p 3000:3000 \
+  -e NODE_ENV=production \
+  -v /app/data:/data \
+  myapp:latest
+
+# 3. Check logs
+docker logs -f app
+        </div>
+    </div>
+
+    <h3>Database Backup Strategy</h3>
+    <div class="command">
+        <div class="title">Daily backup cron job</div>
+        <div class="example">
+# Add to crontab (crontab -e)
+0 2 * * * pg_dump -U postgres mydb > /backups/mydb-$(date +\%Y\%m\%d).sql
+
+# This backs up every day at 2:00 AM
+        </div>
+    </div>
+
+    <div class="tip">
+        <strong>Pro Tips for Full Stack Developers:</strong><br>
+        • Use <code>direnv</code> to manage per-project environment variables<br>
+        • Always use <code>docker-compose.yml</code> for local development (matches production)<br>
+        • Keep database backups in S3 with versioning enabled<br>
+        • Use Terraform for infrastructure, Docker for applications<br>
+        • Test all deployments in staging before production<br>
+        • Monitor logs with <code>tail -f</code> during deployments<br>
+        • Use <code>pm2 ecosystem.config.js</code> for multiple services
+    </div>
+</div>
+</body>
+</html>

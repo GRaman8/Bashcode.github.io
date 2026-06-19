@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Section 1: Basic Commands</title>
+    <title>Section 1: Bash Commands Guide</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
             background: #f0f0f0;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
             background: white;
             padding: 20px;
@@ -22,19 +22,76 @@
         h1 {
             color: #333;
         }
+        h2 {
+            color: #444;
+            border-left: 4px solid #007BFF;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
         .command {
             border-bottom: 1px solid #eee;
-            padding: 10px 0;
+            padding: 15px 0;
         }
         .command:last-child {
             border-bottom: none;
         }
         .title {
-            font-size: 20px;
+            font-size: 18px;
             color: #007BFF;
+            font-family: monospace;
+            word-break: break-all;
         }
         .description, .usage, .other-ways {
-            margin: 5px 0;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .example {
+            background: #f8f8f8;
+            padding: 10px;
+            border-left: 3px solid #007BFF;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
         }
         .section-image {
             width: 100%;
@@ -48,127 +105,163 @@
 <body>
 
 <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
     <h1>Section 1: Bash Commands Guide</h1>
+    <p><strong>Bash</strong> (Bourne Again Shell) is the default shell in most Linux systems and macOS. It's used for command-line operations, scripting, and system administration. Here are the essential commands for navigating and managing files.</p>
+
+    <div class="note">
+        <strong>Basic Tips:</strong><br>
+        • Use <code>Tab</code> for command/filename autocomplete<br>
+        • Use <code>history</code> or <code>Ctrl+R</code> to search previous commands<br>
+        • Use <code>man command</code> to view manual pages<br>
+        • Use <code>|</code> (pipe) to connect commands: <code>command1 | command2</code>
+    </div>
+
+    <h2>File &amp; Directory Navigation</h2>
     <!-- Command Entry -->
     <div class="command">
         <div class="title">cd</div>
         <div class="usage">Usage: Change directory</div>
-        <div class="other-ways">Other Ways: chdir (less common)</div>
-        <div class="description">Description: Navigates to a different directory.</div>
+        <div class="example">cd /path/to/directory</div>
+        <div class="other-ways">Other Ways: <code>cd ..</code> (parent directory), <code>cd ~</code> (home), <code>cd -</code> (previous)</div>
     </div>
     <div class="command">
         <div class="title">ls</div>
         <div class="usage">Usage: List directory contents</div>
-        <div class="other-ways">Other Ways: dir (on some systems)</div>
-        <div class="description">Description: Lists files and directories in the current directory.div>
+        <div class="example">ls -la /path/to/directory</div>
+        <div class="other-ways">Other Ways: <code>ls -lh</code> (human-readable), <code>ls -R</code> (recursive)</div>
+        <div class="description">Description: -l: detailed format, -a: show hidden files, -h: human-readable sizes.</div>
     </div>
     <div class="command">
         <div class="title">pwd</div>
-        <div class="usage">Usage: Print Working Directory</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description: Displays the full path of the current working directory.</div>
+        <div class="usage">Usage: Print current working directory</div>
+        <div class="example">pwd</div>
+        <div class="description">Description: Shows the full path of the current directory.</div>
     </div>
     <div class="command">
         <div class="title">mkdir</div>
         <div class="usage">Usage: Create a new directory</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description: Creates a new directory.</div>
+        <div class="example">mkdir my_folder</div>
+        <div class="other-ways">Other Ways: <code>mkdir -p path/to/nested/folder</code> (create parent directories)</div>
     </div>
     <div class="command">
         <div class="title">rmdir</div>
         <div class="usage">Usage: Remove an empty directory</div>
-        <div class="other-ways">Other Ways: rm -d (be cautious!)</div>
-        <div class="description">Description: Removes an empty directory. Use rm -d with caution as it can permanently delete non-empty directories.</div>
+        <div class="example">rmdir my_folder</div>
+        <div class="description">Description: Only works if the directory is completely empty.</div>
     </div>
+
+    <h2>File Operations</h2>
+
     <div class="command">
         <div class="title">touch</div>
-        <div class="usage">Usage:Create an empty file</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description: Creates an empty file.</div>
+        <div class="usage">Usage: Create an empty file</div>
+        <div class="example">touch file.txt</div>
     </div>
     <div class="command">
         <div class="title">rm</div>
-        <div class="usage">Usage: Remove a file or directory (use with caution!)</div>
-        <div class="other-ways">Other Ways: del (on some systems)</div>
-        <div class="description">Description: Removes a file or directory. Use with caution!</div>
+        <div class="usage">Usage: Remove files or directories</div>
+        <div class="example">rm file.txt</div>
+        <div class="other-ways">Other Ways: <code>rm -r folder</code> (recursive), <code>rm -f file</code> (force)</div>
+        <div class="warning"><strong>⚠️ Caution:</strong> rm permanently deletes files. Use with care! Consider using <code>mv</code> to trash instead.</div>
     </div>
     <div class="command">
         <div class="title">cp</div>
         <div class="usage">Usage: Copy a file or directory</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description: Copies a file or directory.</div>
+        <div class="example">cp source.txt destination.txt</div>
+        <div class="other-ways">Other Ways: <code>cp -r folder1 folder2</code> (recursive copy)</div>
     </div>
     <div class="command">
         <div class="title">mv</div>
         <div class="usage">Usage: Move or rename a file or directory</div>
-        <div class="other-ways">Other Ways: ren (on some systems)</div>
-        <div class="description">Description:  Moves or renames a file or directory.</div>
+        <div class="example">mv old_name.txt new_name.txt</div>
+        <div class="description">Description: Also used to move files: <code>mv file.txt /path/to/destination/</code></div>
     </div>
+
+    <h2>File Viewing &amp; Display</h2>
+
     <div class="command">
         <div class="title">cat</div>
-        <div class="usage">Usage: Display the contents of a file</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Displays the entire content of a file.</div>
+        <div class="usage">Usage: Display file contents</div>
+        <div class="example">cat file.txt</div>
+        <div class="description">Description: Displays entire file at once. Use with large files cautiously.</div>
+    </div>
+    <div class="command">
+        <div class="title">less</div>
+        <div class="usage">Usage: View file page by page</div>
+        <div class="example">less file.txt</example>
+        <div class="description">Description: Press <code>q</code> to quit, <code>Space</code> to page down, <code>b</code> for page up, <code>/pattern</code> to search.</div>
     </div>
     <div class="command">
         <div class="title">more</div>
-        <div class="usage">Usage: Display a file content page by page</div>
-        <div class="other-ways">Other Ways: less (similar functionality)</div>
-        <div class="description">Description:  Displays the content of a file one page at a time.</div>
-    </div>
-    <div class="command">
-        <div class="title">grep</div>
-        <div class="usage">Usage: Search for a pattern in text files</div>
-        <div class="other-ways">Other Ways: findstr (on some systems)</div>
-        <div class="description">Description: Searches for lines matching a specific pattern in text files.</div>
-    </div>
-    <div class="command">
-        <div class="title">echo</div>
-        <div class="usage">Usage: Print text to the terminal</div>
-        <div class="other-ways">Other Ways: printf (more formatting options)</div>
-        <div class="description">Description:  Prints text to the command line.</div>
-    </div>
-    <div class="command">
-        <div class="title">chmod</div>
-        <div class="usage">Usage: Change file permissions</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Modifies access permissions (read, write, execute) for files and directories.</div>
+        <div class="usage">Usage: Display file content page by page (older than less)</div>
+        <div class="example">more file.txt</div>
     </div>
     <div class="command">
         <div class="title">head</div>
         <div class="usage">Usage: Display the first lines of a file</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Displays the first n lines (default: 10) of a file.</div>
+        <div class="example">head -20 file.txt</div>
+        <div class="description">Description: Default is 10 lines. Use <code>-n</code> to specify number: <code>head -n 5 file.txt</code></div>
     </div>
     <div class="command">
         <div class="title">tail</div>
         <div class="usage">Usage: Display the last lines of a file</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Displays the last n lines (default: 10) of a file.</div>
+        <div class="example">tail -20 file.txt</div>
+        <div class="other-ways">Other Ways: <code>tail -f file.txt</code> (follow/watch for changes)</div>
     </div>
+
+    <h2>Text Search &amp; Processing</h2>
+
     <div class="command">
-        <div class="title">**</div>
-        <div class="usage">Usage: ` (pipe operator)**</div>
-        <div class="other-ways">Other Ways: Connects commands</div>
-        <div class="description">Description:  It matches filenames and directories recursively.</div>
-    </div>
-    <div class="command">
-        <div class="title">wc</div>
-        <div class="usage">Usage: Word count</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Counts lines, words, and characters in a file.</div>
+        <div class="title">grep</div>
+        <div class="usage">Usage: Search for patterns in files</div>
+        <div class="example">grep "pattern" file.txt</div>
+        <div class="other-ways">Other Ways: <code>grep -i "pattern" file.txt</code> (case-insensitive), <code>grep -r "pattern" /path/</code> (recursive)</div>
     </div>
     <div class="command">
         <div class="title">sed</div>
-        <div class="usage">Usage: Stream editor</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  A powerful text processing tool for filtering, modifying, and transforming text files.</div>
+        <div class="usage">Usage: Stream editor — find and replace text</div>
+        <div class="example">sed 's/old/new/g' file.txt</div>
+        <div class="description">Description: <code>s</code> = substitute, <code>g</code> = global (all occurrences). Use <code>-i</code> to edit in place.</div>
     </div>
     <div class="command">
         <div class="title">awk</div>
-        <div class="usage">Usage: Pattern-matching language</div>
-        <div class="other-ways">Other Ways: None</div>
-        <div class="description">Description:  Another powerful text processing tool for data manipulation based on patterns and conditions.</div>
+        <div class="usage">Usage: Pattern-matching for data extraction and manipulation</div>
+        <div class="example">awk '{print $1, $3}' file.txt</div>
+        <div class="description">Description: Powerful for processing columnar data. <code>$1</code> = first column, <code>$2</code> = second, etc.</div>
+    </div>
+    <div class="command">
+        <div class="title">wc</div>
+        <div class="usage">Usage: Count lines, words, and characters</div>
+        <div class="example">wc -l file.txt</example>
+        <div class="other-ways">Other Ways: <code>wc -w file.txt</code> (words), <code>wc -c file.txt</code> (bytes)</div>
+    </div>
+
+    <h2>File Permissions &amp; Ownership</h2>
+
+    <div class="command">
+        <div class="title">chmod</div>
+        <div class="usage">Usage: Change file permissions</div>
+        <div class="example">chmod 755 script.sh</example>
+        <div class="description">Description: <code>755</code> = rwxr-xr-x (owner: read/write/execute, others: read/execute). <code>chmod +x</code> adds execute permission.</div>
+    </div>
+    <div class="command">
+        <div class="title">chown</div>
+        <div class="usage">Usage: Change file owner and group</div>
+        <div class="example">chown user:group file.txt</div>
+    </div>
+
+    <h2>Output &amp; Text Utilities</h2>
+
+    <div class="command">
+        <div class="title">echo</div>
+        <div class="usage">Usage: Print text to the terminal</div>
+        <div class="example">echo "Hello, World!"</example>
+    </div>
+    <div class="command">
+        <div class="title">printf</div>
+        <div class="usage">Usage: Formatted print (more control than echo)</div>
+        <div class="example">printf "Name: %s, Age: %d\n" "$name" "$age"</example>
     </div>
 
 </div>

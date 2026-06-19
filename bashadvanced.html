@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Shell Mastery Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            border-left: 4px solid #28a745;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .command {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        .command:last-child {
+            border-bottom: none;
+        }
+        .title {
+            font-size: 18px;
+            color: #28a745;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .description, .usage, .example {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .example {
+            background: #f8f8f8;
+            padding: 10px;
+            border-left: 3px solid #28a745;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #28a745;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #28a745;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+    <h1>Advanced Shell Mastery — Full Stack & Cloud Engineering</h1>
+    <p>Advanced shell techniques, I/O redirection, process management, and workflows for Full Stack Developers and Cloud Engineers. These commands work in both Bash and Zsh.</p>
+
+    <div class="note">
+        <strong>Perfect For:</strong><br>
+        • Local development (Zsh) and cloud servers (Bash)<br>
+        • Docker, AWS, and DevOps workflows<br>
+        • Node.js, Python, Go development<br>
+        • Log analysis and performance monitoring<br>
+        • Git and deployment automation
+    </div>
+
+    <!-- ── I/O REDIRECTION & PIPING ── -->
+    <h2>I/O Redirection &amp; Piping</h2>
+
+    <h3>Output Redirection</h3>
+    <div class="command">
+        <div class="title">command > file</div>
+        <div class="usage">Usage: Redirect output to file (overwrite)</div>
+        <div class="example">echo "Hello World" > output.txt</div>
+    </div>
+    <div class="command">
+        <div class="title">command >> file</div>
+        <div class="usage">Usage: Append output to file</div>
+        <div class="example">echo "New line" >> output.txt</div>
+    </div>
+    <div class="command">
+        <div class="title">command 2> file</div>
+        <div class="usage">Usage: Redirect errors (stderr) to file</div>
+        <div class="example">npm install 2> errors.log</div>
+        <div class="description">Description: Useful for capturing error logs separately.</div>
+    </div>
+    <div class="command">
+        <div class="title">command 2>> file</div>
+        <div class="usage">Usage: Append errors to file</div>
+        <div class="example">docker build . 2>> build-errors.log</div>
+    </div>
+    <div class="command">
+        <div class="title">command &> file</div>
+        <div class="usage">Usage: Redirect both stdout and stderr to same file</div>
+        <div class="example">python script.py &> output.txt</div>
+    </div>
+    <div class="command">
+        <div class="title">command 1> out.txt 2> err.txt</div>
+        <div class="usage">Usage: Redirect stdout and stderr to different files</div>
+        <div class="example">npm test 1> test-output.txt 2> test-errors.txt</div>
+    </div>
+    <div class="command">
+        <div class="title">command > /dev/null 2>&1</div>
+        <div class="usage">Usage: Discard all output (suppress errors)</div>
+        <div class="example">docker ps > /dev/null 2>&1 &amp;&amp; echo "Docker running"</div>
+        <div class="description">Description: Useful for silent execution or checking exit status only.</div>
+    </div>
+
+    <h3>Input Redirection</h3>
+    <div class="command">
+        <div class="title">command < file</div>
+        <div class="usage">Usage: Redirect file as input to command</div>
+        <div class="example">grep "error" < server.log</div>
+    </div>
+    <div class="command">
+        <div class="title">command1 | command2</div>
+        <div class="usage">Usage: Pipe (send output of command1 to command2)</div>
+        <div class="example">docker ps | grep "redis"</div>
+    </div>
+    <div class="command">
+        <div class="title">command1 | command2 | command3</div>
+        <div class="usage">Usage: Chain multiple pipes</div>
+        <div class="example">cat package.json | grep "dependencies" | head -5</div>
+    </div>
+    <div class="command">
+        <div class="title">command << 'EOF' ... EOF</div>
+        <div class="usage">Usage: Here-document (multi-line input)</div>
+        <div class="example">
+cat > script.sh << 'EOF'
+#!/bin/bash
+echo "Hello"
+EOF
+        </div>
+        <div class="description">Description: Useful for creating files or scripts inline.</div>
+    </div>
+    <div class="command">
+        <div class="title">command <<< "string"</div>
+        <div class="usage">Usage: Here-string (pass string as input)</div>
+        <div class="example">wc -w <<< "Hello World"</div>
+    </div>
+
+    <h3>Advanced Piping</h3>
+    <div class="command">
+        <div class="title">command1 |& command2</div>
+        <div class="usage">Usage: Pipe both stdout and stderr</div>
+        <div class="example">npm install |& tee install.log</div>
+        <div class="description">Description: Captures all output including errors.</div>
+    </div>
+    <div class="command">
+        <div class="title">tee</div>
+        <div class="usage">Usage: Save output to file AND display on terminal</div>
+        <div class="example">docker build . | tee build.log</div>
+        <div class="description">Description: Useful for logging while watching output.</div>
+    </div>
+    <div class="command">
+        <div class="title">tee -a file</div>
+        <div class="usage">Usage: Append to file while displaying</div>
+        <div class="example">npm test | tee -a test-results.txt</div>
+    </div>
+
+    <!-- ── PROCESS MANAGEMENT ── -->
+    <h2>Process Management &amp; Job Control</h2>
+
+    <div class="command">
+        <div class="title">command &</div>
+        <div class="usage">Usage: Run command in background</div>
+        <div class="example">npm start &amp;</div>
+        <div class="description">Description: Process runs in background, returns to prompt.</div>
+    </div>
+    <div class="command">
+        <div class="title">Ctrl+Z</div>
+        <div class="usage">Usage: Suspend running process</div>
+        <div class="description">Description: Pause current process, returns to prompt.</div>
+    </div>
+    <div class="command">
+        <div class="title">bg</div>
+        <div class="usage">Usage: Resume suspended process in background</div>
+        <div class="example">bg %1</example>
+    </div>
+    <div class="command">
+        <div class="title">fg</div>
+        <div class="usage">Usage: Bring background process to foreground</div>
+        <div class="example">fg %1</example>
+    </div>
+    <div class="command">
+        <div class="title">jobs</div>
+        <div class="usage">Usage: List all background jobs</div>
+        <div class="example">jobs</example>
+        <div class="other-ways">Other Ways: <code>jobs -l</code> (with PIDs), <code>jobs -p</code> (only PIDs)</div>
+    </div>
+    <div class="command">
+        <div class="title">ps aux | grep process</div>
+        <div class="usage">Usage: List running processes matching pattern</div>
+        <div class="example">ps aux | grep "node"</example>
+    </div>
+    <div class="command">
+        <div class="title">ps aux</div>
+        <div class="usage">Usage: List all running processes</div>
+        <div class="example">ps aux</example>
+        <div class="description">Description: <code>a</code>=all users, <code>u</code>=detailed, <code>x</code>=background processes.</div>
+    </div>
+    <div class="command">
+        <div class="title">kill PID</div>
+        <div class="usage">Usage: Terminate process by PID</div>
+        <div class="example">kill 1234</example>
+    </div>
+    <div class="command">
+        <div class="title">kill -9 PID</div>
+        <div class="usage">Usage: Force kill process (SIGKILL)</div>
+        <div class="example">kill -9 1234</example>
+        <div class="warning"><strong>⚠️</strong> Force kill doesn't allow cleanup. Use as last resort.</div>
+    </div>
+    <div class="command">
+        <div class="title">killall process_name</div>
+        <div class="usage">Usage: Kill all processes by name</div>
+        <div class="example">killall node</example>
+    </div>
+    <div class="command">
+        <div class="title">nohup command &</div>
+        <div class="usage">Usage: Run command immune to hangups (survives logout)</div>
+        <div class="example">nohup npm start > app.log 2>&amp;1 &amp;</example>
+        <div class="description">Description: Perfect for running long processes on remote servers.</div>
+    </div>
+    <div class="command">
+        <div class="title">disown %1</div>
+        <div class="usage">Usage: Remove job from shell tracking</div>
+        <div class="example">disown %1</example>
+        <div class="description">Description: Process continues even if terminal closes.</div>
+    </div>
+
+    <!-- ── PROCESS SUBSTITUTION ── -->
+    <h2>Process Substitution &amp; Advanced Patterns</h2>
+
+    <div class="command">
+        <div class="title">diff <(command1) <(command2)</div>
+        <div class="usage">Usage: Compare outputs of two commands</div>
+        <div class="example">diff <(docker images | sort) <(docker images | head -5)</example>
+        <div class="description">Description: Powerful for comparing command outputs without temp files.</div>
+    </div>
+    <div class="command">
+        <div class="title">command1 && command2</div>
+        <div class="usage">Usage: Run command2 only if command1 succeeds</div>
+        <div class="example">cd project && npm install && npm start</example>
+    </div>
+    <div class="command">
+        <div class="title">command1 || command2</div>
+        <div class="usage">Usage: Run command2 only if command1 fails</div>
+        <div class="example">docker ps || echo "Docker not running"</example>
+    </div>
+    <div class="command">
+        <div class="title">command1; command2; command3</div>
+        <div class="usage">Usage: Run commands sequentially (regardless of success)</div>
+        <div class="example">git add . ; git commit -m "fix" ; git push</example>
+    </div>
+
+    <!-- ── TEXT PROCESSING ── -->
+    <h2>Text Processing for Log Analysis</h2>
+
+    <div class="command">
+        <div class="title">grep "pattern" file.txt</div>
+        <div class="usage">Usage: Search for text pattern in file</div>
+        <div class="example">grep "ERROR" app.log</example>
+    </div>
+    <div class="command">
+        <div class="title">grep -i "pattern" file.txt</div>
+        <div class="usage">Usage: Case-insensitive grep</div>
+        <div class="example">grep -i "error" app.log</example>
+    </div>
+    <div class="command">
+        <div class="title">grep -r "pattern" /path/</div>
+        <div class="usage">Usage: Recursive grep (search in all files)</div>
+        <div class="example">grep -r "TODO" src/</example>
+    </div>
+    <div class="command">
+        <div class="title">grep "pattern" file | wc -l</div>
+        <div class="usage">Usage: Count matching lines</div>
+        <div class="example">grep "ERROR" server.log | wc -l</example>
+    </div>
+    <div class="command">
+        <div class="title">tail -f file.log</div>
+        <div class="usage">Usage: Follow log file (watch new lines in real-time)</div>
+        <div class="example">tail -f /var/log/docker.log</example>
+        <div class="description">Description: Great for monitoring logs. Press Ctrl+C to stop.</div>
+    </div>
+    <div class="command">
+        <div class="title">tail -n 20 file.log</div>
+        <div class="usage">Usage: Show last 20 lines</div>
+        <div class="example">tail -n 50 docker.log</example>
+    </div>
+    <div class="command">
+        <div class="title">head -n 10 file.log</div>
+        <div class="usage">Usage: Show first 10 lines</div>
+        <div class="example">head -n 20 build.log</example>
+    </div>
+    <div class="command">
+        <div class="title">sed 's/old/new/g' file.txt</div>
+        <div class="usage">Usage: Find and replace (sed substitute)</div>
+        <div class="example">sed 's/localhost/127.0.0.1/g' config.txt</example>
+    </div>
+    <div class="command">
+        <div class="title">sed -i 's/old/new/g' file.txt</div>
+        <div class="usage">Usage: In-place find and replace</div>
+        <div class="example">sed -i 's/DEBUG/INFO/g' app.log</example>
+        <div class="warning"><strong>⚠️</strong> Modifies original file. Backup first!</div>
+    </div>
+    <div class="command">
+        <div class="title">awk '{print $1, $3}' file.txt</div>
+        <div class="usage">Usage: Extract specific columns</div>
+        <div class="example">ps aux | awk '{print $2, $11}' (PID and command)</example>
+        <div class="description">Description: <code>$1</code>=column1, <code>$2</code>=column2, etc. Space-delimited.</div>
+    </div>
+    <div class="command">
+        <div class="title">cut -d',' -f1,3 file.csv</div>
+        <div class="usage">Usage: Extract columns by delimiter</div>
+        <div class="example">cut -d',' -f1,2 data.csv</example>
+        <div class="description">Description: <code>-d</code>=delimiter, <code>-f</code>=field numbers.</div>
+    </div>
+    <div class="command">
+        <div class="title">sort file.txt</div>
+        <div class="usage">Usage: Sort lines</div>
+        <div class="example">sort servers.txt</example>
+    </div>
+    <div class="command">
+        <div class="title">sort -u file.txt</div>
+        <div class="usage">Usage: Sort and remove duplicates</div>
+        <div class="example">ps aux | awk '{print $1}' | sort -u</example>
+    </div>
+    <div class="command">
+        <div class="title">uniq file.txt</div>
+        <div class="usage">Usage: Remove consecutive duplicate lines</div>
+        <div class="example">sort file.txt | uniq</example>
+    </div>
+    <div class="command">
+        <div class="title">tr 'a-z' 'A-Z' < file.txt</div>
+        <div class="usage">Usage: Translate characters (e.g., lowercase to uppercase)</div>
+        <div class="example">echo "hello" | tr 'a-z' 'A-Z'</example>
+    </div>
+
+    <!-- ── PERFORMANCE & MONITORING ── -->
+    <h2>Performance Monitoring &amp; System Info</h2>
+
+    <div class="command">
+        <div class="title">top</div>
+        <div class="usage">Usage: Interactive real-time process monitor</div>
+        <div class="example">top</example>
+        <div class="description">Description: Press <code>q</code> to quit, <code>1</code> to show CPUs, <code>M</code> to sort by memory.</div>
+    </div>
+    <div class="command">
+        <div class="title">btop</div>
+        <div class="usage">Usage: Advanced system monitor (better than htop/top)</div>
+        <div class="example">btop</example>
+        <div class="description">Description: Modern, resource-efficient system monitor with beautiful UI. Install with: <code>apt install btop</code> or <code>brew install btop</code></div>
+    </div>
+    <div class="command">
+        <div class="title">ps aux | grep process</div>
+        <div class="usage">Usage: Find processes by name with memory/CPU usage</div>
+        <div class="example">ps aux | grep "node"</example>
+    </div>
+    <div class="command">
+        <div class="title">free -h</div>
+        <div class="usage">Usage: Show memory usage (human-readable)</div>
+        <div class="example">free -h</example>
+    </div>
+    <div class="command">
+        <div class="title">df -h</div>
+        <div class="usage">Usage: Disk space usage by filesystem</div>
+        <div class="example">df -h</example>
+    </div>
+    <div class="command">
+        <div class="title">du -sh /path/</div>
+        <div class="usage">Usage: Directory size</div>
+        <div class="example">du -sh /var/log</example>
+    </div>
+    <div class="command">
+        <div class="title">du -sh *</div>
+        <div class="usage">Usage: Size of each item in directory</div>
+        <div class="example">du -sh * | sort -h</example>
+    </div>
+    <div class="command">
+        <div class="title">watch -n 2 command</div>
+        <div class="usage">Usage: Run command repeatedly every N seconds</div>
+        <div class="example">watch -n 2 'docker ps'</example>
+        <div class="description">Description: Perfect for monitoring. Press Ctrl+C to stop.</div>
+    </div>
+    <div class="command">
+        <div class="title">time command</div>
+        <div class="usage">Usage: Measure command execution time</div>
+        <div class="example">time npm run build</example>
+    </div>
+
+    <!-- ── NETWORK TOOLS ── -->
+    <h2>Network &amp; Connectivity Tools</h2>
+
+    <div class="command">
+        <div class="title">curl -I URL</div>
+        <div class="usage">Usage: Check HTTP response headers (status code)</div>
+        <div class="example">curl -I https://api.example.com</example>
+    </div>
+    <div class="command">
+        <div class="title">curl -v URL</div>
+        <div class="usage">Usage: Verbose curl (show full request/response)</div>
+        <div class="example">curl -v https://api.example.com</example>
+    </div>
+    <div class="command">
+        <div class="title">curl -X POST -d @file.json URL</div>
+        <div class="usage">Usage: Send POST request with JSON payload</div>
+        <div class="example">curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' https://api.example.com</example>
+    </div>
+    <div class="command">
+        <div class="title">wget URL</div>
+        <div class="usage">Usage: Download file from URL</div>
+        <div class="example">wget https://example.com/file.zip</example>
+    </div>
+    <div class="command">
+        <div class="title">netstat -tuln</div>
+        <div class="usage">Usage: List listening ports and services</div>
+        <div class="example">netstat -tuln | grep LISTEN</example>
+        <div class="description">Description: <code>t</code>=TCP, <code>u</code>=UDP, <code>l</code>=listening, <code>n</code>=numeric.</div>
+    </div>
+    <div class="command">
+        <div class="title">ss -tuln</div>
+        <div class="usage">Usage: Modern alternative to netstat</div>
+        <div class="example">ss -tuln | grep :8080</example>
+    </div>
+    <div class="command">
+        <div class="title">lsof -i :PORT</div>
+        <div class="usage">Usage: Find process using specific port</div>
+        <div class="example">lsof -i :3000</example>
+        <div class="description">Description: Great for finding what's running on a port.</div>
+    </div>
+    <div class="command">
+        <div class="title">ping -c 4 domain.com</div>
+        <div class="usage">Usage: Test connectivity to host</div>
+        <div class="example">ping -c 4 google.com</example>
+    </div>
+    <div class="command">
+        <div class="title">dig domain.com</div>
+        <div class="usage">Usage: DNS lookup</div>
+        <div class="example">dig api.github.com</example>
+    </div>
+    <div class="command">
+        <div class="title">traceroute domain.com</div>
+        <div class="usage">Usage: Trace network path to host</div>
+        <div class="example">traceroute google.com</example>
+    </div>
+
+    <!-- ── ENVIRONMENT & PATH ── -->
+    <h2>Environment Variables &amp; PATH Management</h2>
+
+    <div class="command">
+        <div class="title">echo $VARIABLE</div>
+        <div class="usage">Usage: Print environment variable value</div>
+        <div class="example">echo $PATH</example>
+    </div>
+    <div class="command">
+        <div class="title">export VARIABLE="value"</div>
+        <div class="usage">Usage: Set environment variable</div>
+        <div class="example">export NODE_ENV="production"</example>
+    </div>
+    <div class="command">
+        <div class="title">env</div>
+        <div class="usage">Usage: Show all environment variables</div>
+        <div class="example">env | grep NODE</example>
+    </div>
+    <div class="command">
+        <div class="title">export PATH="$PATH:/new/path"</div>
+        <div class="usage">Usage: Add to PATH</div>
+        <div class="example">export PATH="$PATH:$HOME/bin"</example>
+    </div>
+    <div class="command">
+        <div class="title">which command</div>
+        <div class="usage">Usage: Find command location in PATH</div>
+        <div class="example">which python</example>
+    </div>
+    <div class="command">
+        <div class="title">source ~/.bashrc or ~/.zshrc</div>
+        <div class="usage">Usage: Reload shell configuration</div>
+        <div class="example">source ~/.zshrc</example>
+        <div class="description">Description: Apply changes to .bashrc/.zshrc without restarting shell.</div>
+    </div>
+
+    <!-- ── ARCHIVE & COMPRESSION ── -->
+    <h2>Archive &amp; Compression</h2>
+
+    <div class="command">
+        <div class="title">tar -czf archive.tar.gz folder/</div>
+        <div class="usage">Usage: Create compressed tar archive</div>
+        <div class="example">tar -czf backup.tar.gz project/</example>
+        <div class="description">Description: <code>c</code>=create, <code>z</code>=gzip compress, <code>f</code>=file.</div>
+    </div>
+    <div class="command">
+        <div class="title">tar -xzf archive.tar.gz</div>
+        <div class="usage">Usage: Extract tar.gz archive</div>
+        <div class="example">tar -xzf backup.tar.gz</example>
+        <div class="description">Description: <code>x</code>=extract, <code>z</code>=gunzip, <code>f</code>=file.</div>
+    </div>
+    <div class="command">
+        <div class="title">zip -r archive.zip folder/</div>
+        <div class="usage">Usage: Create zip archive</div>
+        <div class="example">zip -r project.zip src/</example>
+    </div>
+    <div class="command">
+        <div class="title">unzip archive.zip</div>
+        <div class="usage">Usage: Extract zip archive</div>
+        <div class="example">unzip project.zip</example>
+    </div>
+
+    <!-- ── GIT WORKFLOWS ── -->
+    <h2>Git Advanced Workflows</h2>
+
+    <div class="command">
+        <div class="title">git log --oneline --graph --all</div>
+        <div class="usage">Usage: Visual git history</div>
+        <div class="example">git log --oneline --graph --all</example>
+    </div>
+    <div class="command">
+        <div class="title">git diff HEAD~1 HEAD</div>
+        <div class="usage">Usage: Compare last 2 commits</div>
+        <div class="example">git diff HEAD~1 HEAD</example>
+    </div>
+    <div class="command">
+        <div class="title">git stash</div>
+        <div class="usage">Usage: Save uncommitted changes temporarily</div>
+        <div class="example">git stash</example>
+    </div>
+    <div class="command">
+        <div class="title">git stash pop</div>
+        <div class="usage">Usage: Restore stashed changes</div>
+        <div class="example">git stash pop</example>
+    </div>
+    <div class="command">
+        <div class="title">git cherry-pick COMMIT</div>
+        <div class="usage">Usage: Apply specific commit to current branch</div>
+        <div class="example">git cherry-pick abc123def</example>
+    </div>
+    <div class="command">
+        <div class="title">git rebase -i HEAD~3</div>
+        <div class="usage">Usage: Interactive rebase (edit last 3 commits)</div>
+        <div class="example">git rebase -i HEAD~3</example>
+        <div class="warning"><strong>⚠️</strong> Don't rebase public commits!</div>
+    </div>
+    <div class="command">
+        <div class="title">git push --force-with-lease</div>
+        <div class="usage">Usage: Force push safely (rebase-aware)</div>
+        <div class="example">git push --force-with-lease</example>
+        <div class="description">Description: Safer than --force, checks for remote changes.</div>
+    </div>
+
+    <!-- ── SHELL FUNCTIONS ── -->
+    <h2>Useful Shell Functions &amp; One-Liners</h2>
+
+    <div class="command">
+        <div class="title">function_name() { commands; }</div>
+        <div class="usage">Usage: Define shell function</div>
+        <div class="example">
+# Find which process is using a port
+port_info() { lsof -i :$1; }
+port_info 3000
+        </div>
+    </div>
+    <div class="command">
+        <div class="title">find large files</div>
+        <div class="usage">Usage: One-liner to find largest files</div>
+        <div class="example">find . -type f -exec du -h {} + | sort -rh | head -10</example>
+    </div>
+    <div class="command">
+        <div class="title">batch rename files</div>
+        <div class="usage">Usage: Rename files matching pattern</div>
+        <div class="example">for file in *.txt; do mv "$file" "${file%.txt}.log"; done</example>
+    </div>
+    <div class="command">
+        <div class="title">create multiple directories</div>
+        <div class="usage">Usage: Create nested directory structure</div>
+        <div class="example">mkdir -p src/{components,pages,utils}/{hooks,styles,types}</example>
+    </div>
+    <div class="command">
+        <div class="title">quick backup</div>
+        <div class="usage">Usage: Backup file with timestamp</div>
+        <div class="example">cp config.json config.json.$(date +%Y%m%d_%H%M%S)</example>
+    </div>
+    <div class="command">
+        <div class="title">parallel downloads</div>
+        <div class="usage">Usage: Download multiple files in parallel</div>
+        <div class="example">cat urls.txt | xargs -P 5 -I {} wget {}</example>
+        <div class="description">Description: <code>-P 5</code> = 5 parallel jobs.</div>
+    </div>
+
+    <div class="tip">
+        <strong>Pro Tips:</strong><br>
+        • Use <code>!!;</code> to repeat last command with sudo<br>
+        • Use <code>!$</code> to reference last argument<br>
+        • Use <code>Ctrl+R</code> to search command history<br>
+        • Combine commands with pipes for powerful workflows<br>
+        • Always test destructive commands (rm, sed -i) on copies first
+    </div>
+
+</div>
+
+</body>
+</html>

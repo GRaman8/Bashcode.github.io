@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Section 1: Basic Commands</title>
+    <title>Section 2: Conda Commands Guide</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
             background: #f0f0f0;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
             background: white;
             padding: 20px;
@@ -22,19 +22,69 @@
         h1 {
             color: #333;
         }
+        h2 {
+            color: #444;
+            border-left: 4px solid #007BFF;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
         .command {
             border-bottom: 1px solid #eee;
-            padding: 10px 0;
+            padding: 15px 0;
         }
         .command:last-child {
             border-bottom: none;
         }
         .title {
-            font-size: 20px;
+            font-size: 18px;
             color: #007BFF;
+            font-family: monospace;
+            word-break: break-all;
         }
         .description, .usage, .other-ways {
-            margin: 5px 0;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .example {
+            background: #f8f8f8;
+            padding: 10px;
+            border-left: 3px solid #007BFF;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
         }
         .section-image {
             width: 100%;
@@ -48,65 +98,152 @@
 <body>
 
 <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
     <h1>Section 2: Conda Commands Guide</h1>
-    <p>Conda is a package, dependency, and environment management tool commonly used in data science and software development. Here are some essential commands for managing environments and packages with Conda:</p>
+    <p><strong>Conda</strong> is a powerful package and environment management tool commonly used in data science, machine learning, and scientific computing. It handles dependencies, versions, and isolates project environments.</p>
+
+    <div class="note">
+        <strong>Conda Basics:</strong><br>
+        • Create separate environments for different projects<br>
+        • Install packages with version control<br>
+        • Conda is language-agnostic (Python, R, C++, etc.)<br>
+        • Use <code>mamba</code> for faster package solving (drop-in Conda replacement)
+    </div>
+
+    <h2>Environment Management</h2>
     <div class="command">
         <div class="title">conda create --name myenv</div>
         <div class="usage">Usage: Create a new environment</div>
-        <div class="description">Description: Replace myenv with the desired name for your environment.</div>
+        <div class="example">conda create --name data-science python=3.10</div>
+        <div class="description">Description: Create named environment. Optionally specify Python version.</div>
     </div>
     <div class="command">
         <div class="title">conda activate myenv</div>
         <div class="usage">Usage: Activate an environment</div>
+        <div class="example">conda activate data-science</example>
+        <div class="description">Description: Switches to the specified environment. Notice prompt changes to show active environment.</div>
     </div>
     <div class="command">
         <div class="title">conda deactivate</div>
-        <div class="usage">Usage: Deactivate the current environment:</div>
-    </div>  
+        <div class="usage">Usage: Deactivate current environment (return to base)</div>
+        <div class="example">conda deactivate</example>
+    </div>
     <div class="command">
         <div class="title">conda env list</div>
         <div class="usage">Usage: List all environments</div>
-        <div class="other-ways">Other Ways: conda info --envs</div>
-    </div> 
+        <div class="example">conda env list</example>
+        <div class="other-ways">Other Ways: <code>conda info --envs</code></div>
+    </div>
     <div class="command">
         <div class="title">conda remove --name myenv --all</div>
-        <div class="usage">Usage: Remove an environment</div>
+        <div class="usage">Usage: Remove an environment and all packages</div>
+        <div class="example">conda remove --name old-project --all</example>
     </div>
+
+    <h2>Package Management</h2>
+
     <div class="command">
         <div class="title">conda install package_name</div>
         <div class="usage">Usage: Install a package in the current environment</div>
-        <div class="description">Description: Replace package_name with the name of the package you want to install.</div>
-    </div> 
+        <div class="example">conda install numpy pandas matplotlib</example>
+        <div class="description">Description: Can install multiple packages at once. Install only in active environment.</div>
+    </div>
     <div class="command">
-        <div class="title">conda install package_name=version_number</div>
-        <div class="usage">Usage: Install a specific version of a package</div>
-        <div class="description">Description: Replace version_number with the specific version you need.</div>
+        <div class="title">conda install -n env_name package_name</div>
+        <div class="usage">Usage: Install package in a specific environment</div>
+        <div class="example">conda install -n data-science scikit-learn</example>
+        <div class="description">Description: <code>-n</code> flag specifies target environment without activating it.</div>
+    </div>
+    <div class="command">
+        <div class="title">conda install package_name=version</div>
+        <div class="usage">Usage: Install specific version of a package</div>
+        <div class="example">conda install numpy=1.21.0</example>
+        <div class="description">Description: Version pinning prevents unwanted updates.</div>
+    </div>
+    <div class="command">
+        <div class="title">conda list</div>
+        <div class="usage">Usage: List all installed packages in current environment</div>
+        <div class="example">conda list</example>
+        <div class="other-ways">Other Ways: <code>conda list -n env_name</code> (list packages in specific env)</div>
+    </div>
+    <div class="command">
+        <div class="title">conda search package_name</div>
+        <div class="usage">Usage: Search for available packages</div>
+        <div class="example">conda search tensorflow</example>
+        <div class="description">Description: Shows all available versions in configured channels.</div>
     </div>
     <div class="command">
         <div class="title">conda update package_name</div>
-        <div class="usage">Usage: Update a package</div>
+        <div class="usage">Usage: Update a package to latest version</div>
+        <div class="example">conda update numpy</example>
     </div>
     <div class="command">
         <div class="title">conda remove package_name</div>
         <div class="usage">Usage: Remove a package</div>
+        <div class="example">conda remove jupyter</example>
     </div>
-    <div class="command">
-        <div class="title">conda list</div>
-        <div class="usage">Usage: List all installed packages</div>
-    </div>
-    <div class="command">
-        <div class="title">conda search package_name</div>
-        <div class="usage">Usage: Search for a package</div>
-    </div>
+
+    <h2>Maintenance &amp; Configuration</h2>
+
     <div class="command">
         <div class="title">conda update conda</div>
         <div class="usage">Usage: Update Conda itself</div>
+        <div class="example">conda update conda</example>
+    </div>
+    <div class="command">
+        <div class="title">conda update anaconda</div>
+        <div class="usage">Usage: Update all Anaconda packages</div>
+        <div class="example">conda update anaconda</example>
     </div>
     <div class="command">
         <div class="title">conda clean --all</div>
-        <div class="usage">Usage: Clean up unused packages and caches</div>
-    </div>    
-    <!-- Add more commands relevant to this section -->
+        <div class="usage">Usage: Remove unused packages and caches</div>
+        <div class="example">conda clean --all</example>
+        <div class="description">Description: Frees up disk space by removing cached installers and unused packages.</div>
+    </div>
+    <div class="command">
+        <div class="title">conda info</div>
+        <div class="usage">Usage: Display Conda configuration and system info</div>
+        <div class="example">conda info</example>
+    </div>
+
+    <h2>Environment Files &amp; Sharing</h2>
+
+    <div class="command">
+        <div class="title">conda env export > environment.yml</div>
+        <div class="usage">Usage: Export environment to a file</div>
+        <div class="example">conda env export > environment.yml</example>
+        <div class="description">Description: Creates a YAML file with all packages and versions for sharing/reproduction.</div>
+    </div>
+    <div class="command">
+        <div class="title">conda env create -f environment.yml</div>
+        <div class="usage">Usage: Create environment from file</div>
+        <div class="example">conda env create -f environment.yml</example>
+        <div class="description">Description: Recreate environment with exact packages/versions from exported file.</div>
+    </div>
+
+    <h2>Channels &amp; Package Sources</h2>
+
+    <div class="command">
+        <div class="title">conda config --add channels conda-forge</div>
+        <div class="usage">Usage: Add a package channel</div>
+        <div class="example">conda config --add channels conda-forge</example>
+        <div class="description">Description: Expand available packages. conda-forge has many community packages.</div>
+    </div>
+    <div class="command">
+        <div class="title">conda config --show channels</div>
+        <div class="usage">Usage: View configured channels</div>
+        <div class="example">conda config --show channels</example>
+    </div>
+
+    <div class="tip">
+        <strong>Pro Tips:</strong><br>
+        • Use <code>mamba</code> for faster installation (install with: <code>conda install -c conda-forge mamba</code>)<br>
+        • Always create new environments for new projects<br>
+        • Use <code>environment.yml</code> for team collaboration<br>
+        • Clean cache regularly with <code>conda clean --all</code>
+    </div>
+
 </div>
 
 </body>
